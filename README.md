@@ -48,10 +48,10 @@ A user's explicit Firestore state wins on the next run:
 ## Setup notes
 
 - Firebase web client config lives in `window.FIREBASE_CONFIG` at the top of
-  the page script in `index.html` (project `fired-arts-dashboard`). If it is
+  the page script in `index.html` (project `fired-arts-dashboard`; public
+  client config, recovered from the production Arts Fired bundle). If it is
   `null`, sign-in and write-back are off and the page shows the baked-in
-  state only. Fill it in from:
-  `firebase apps:sdkconfig web --project fired-arts-dashboard`
+  state only.
 - Writes also need the Firestore rules for `auditResolutions` published and
   `kmberry1989.github.io` added under Authentication → Settings → Authorized
   domains in the Firebase console. Until both land, checkbox writes fail

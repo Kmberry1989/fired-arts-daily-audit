@@ -714,12 +714,9 @@
 </div>
 
 <script>
-  // Firebase web client config for project fired-arts-dashboard.
-  // TODO: paste web client config from: firebase apps:sdkconfig web --project fired-arts-dashboard
-  // (No config values exist in the workspace — the piece-tracker reads them
-  // from Vercel env vars. Until this is filled in, sign-in and write-back
-  // stay off and the checklist below shows the report's baked-in state.)
-  window.FIREBASE_CONFIG = null;
+  // Firebase web client config for project fired-arts-dashboard
+  // (public client config, recovered from the production Arts Fired bundle).
+  window.FIREBASE_CONFIG = {"apiKey": "AIzaSyDcw3y_l_xxvsuoPrEJRQGSLua7CPsoQYo", "authDomain": "fired-arts-dashboard.firebaseapp.com", "projectId": "fired-arts-dashboard", "storageBucket": "fired-arts-dashboard.firebasestorage.app", "messagingSenderId": "369187068047", "appId": "1:369187068047:web:1305bcbb9f93c2eaadb8fa"};
 </script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
