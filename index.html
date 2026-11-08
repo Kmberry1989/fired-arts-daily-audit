@@ -160,18 +160,25 @@
   }
   .check{
     flex:0 0 auto; appearance:none; background:none; border:0; cursor:pointer;
-    font:inherit; font-size:21px; line-height:1.2; color:var(--ink-3);
     padding:5px 6px; margin:-3px -2px -3px -6px; border-radius:6px;
     -webkit-tap-highlight-color:transparent; touch-action:manipulation;
   }
-  .check:hover{ color:var(--clay); }
+  .check .box{
+    display:block; width:20px; height:20px; border:2px solid var(--ink-3);
+    border-radius:4px; background:var(--surface); position:relative;
+  }
+  .check:hover .box{ border-color:var(--clay); }
+  .issue.resolved .check .box{ border-color:var(--ok); background:var(--ok); }
+  .issue.resolved .check .box::after{
+    content:""; position:absolute; left:5px; top:1px; width:5px; height:11px;
+    border:solid #fff; border-width:0 2.5px 2.5px 0; transform:rotate(45deg);
+  }
   .check:focus-visible{ outline:2px solid var(--clay); outline-offset:1px; }
   .issue.resolved{ background:var(--surface-2); }
-  .issue.resolved .check{ color:var(--ok); }
   .issue.resolved .issue-title{ text-decoration:line-through; color:var(--ink-2); }
   .issue:not(.resolved) .sev.done{ display:none; }
   .sev.done{ background:var(--ok-bg); color:var(--ok); text-transform:none; letter-spacing:0; font-size:12.5px; }
-  .issue-title{ flex:1 1 auto; font-weight:700; font-size:17.5px; line-height:1.35; }
+  .issue-title{ flex:1 1 auto; font-weight:700; font-size:17.5px; line-height:1.35; text-decoration:underline; text-underline-offset:2px; }
   .sev{
     flex:0 0 auto; font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
     border-radius:999px; padding:3px 10px; margin-top:2px; white-space:nowrap;
@@ -179,7 +186,7 @@
   .sev.bad{ background:var(--bad-bg); color:var(--bad); }
   .sev.warn{ background:var(--warn-bg); color:var(--warn); }
   .sev.gap{ background:var(--gap-bg); color:var(--gap); }
-  .chev{ flex:0 0 auto; color:var(--ink-3); font-size:15px; margin-top:3px; transition:transform .15s ease; }
+  .chev{ flex:0 0 auto; width:0; height:0; margin-top:9px; border-left:6px solid transparent; border-right:6px solid transparent; border-top:8px solid var(--ink-3); transition:transform .15s ease; }
   .issue[open ] .chev{ transform:rotate(180deg); }
   .issue-body{ padding:2px 20px 18px 64px; }
   .issue-body p{ margin:0 0 9px; }
@@ -380,7 +387,7 @@
     <h3 class="group">Confusing for customers <span class="count" id="count-bad">10 open</span></h3>
 
     <details class="issue" data-sev="bad" open data-issue="1">
-      <summary><button type="button" class="check" data-check aria-pressed="false" aria-label="Mark issue 1 as resolved">☐</button><span class="issue-num">1</span><span class="issue-title">Santa's Little Wheel Potters end time reads "11:30 PM" on the website</span><span class="sev bad">Customer</span><span class="chev" aria-hidden="true">â¾</span></summary>
+      <summary><button type="button" class="check" data-check aria-pressed="false" aria-label="Mark issue 1 as resolved"><span class="box" aria-hidden="true"></span></button><span class="issue-num">1.</span><span class="issue-title">Santa's Little Wheel Potters end time reads "11:30 PM" on the website</span><span class="sev bad">Customer</span><span class="chev" aria-hidden="true"></span></summary>
       <div class="issue-body">
         <p class="first-seen">First seen: 2026-11-07 · Still open</p>
         <ul>
@@ -395,7 +402,7 @@
     </details>
 
     <details class="issue" data-sev="bad" open data-issue="2">
-      <summary><button type="button" class="check" data-check aria-pressed="false" aria-label="Mark issue 2 as resolved">☐</button><span class="issue-num">2</span><span class="issue-title">Turkey Handprint Ornament (Nov 14) has three different times across channels</span><span class="sev bad">Customer</span><span class="chev" aria-hidden="true">â¾</span></summary>
+      <summary><button type="button" class="check" data-check aria-pressed="false" aria-label="Mark issue 2 as resolved"><span class="box" aria-hidden="true"></span></button><span class="issue-num">2.</span><span class="issue-title">Turkey Handprint Ornament (Nov 14) has three different times across channels</span><span class="sev bad">Customer</span><span class="chev" aria-hidden="true"></span></summary>
       <div class="issue-body">
         <p class="first-seen">First seen: 2026-11-07 · Still open</p>
         <ul>
@@ -411,7 +418,7 @@
     </details>
 
     <details class="issue" data-sev="bad" data-issue="3">
-      <summary><button type="button" class="check" data-check aria-pressed="false" aria-label="Mark issue 3 as resolved">☐</button><span class="issue-num">3</span><span class="issue-title">Nov 24 Tuesday canvas: Poinsettias vs Forrest Gnome</span><span class="sev bad">Customer</span><span class="chev" aria-hidden="true">â¾</span></summary>
+      <summary><button type="button" class="check" data-check aria-pressed="false" aria-label="Mark issue 3 as resolved"><span class="box" aria-hidden="true"></span></button><span class="issue-num">3.</span><span class="issue-title">Nov 24 Tuesday canvas: Poinsettias vs Forrest Gnome</span><span class="sev bad">Customer</span><span class="chev" aria-hidden="true"></span></summary>
       <div class="issue-body">
         <p class="first-seen">First seen: 2026-11-07 · Still open</p>
         <ul>
@@ -425,7 +432,7 @@
     </details>
 
     <details class="issue" data-sev="bad" data-issue="4">
-      <summary><button type="button" class="check" data-check aria-pressed="false" aria-label="Mark issue 4 as resolved">☐</button><span class="issue-num">4</span><span class="issue-title">Instagram bio hours omit Tuesday</span><span class="sev bad">Customer</span><span class="chev" aria-hidden="true">â¾</span></summary>
+      <summary><button type="button" class="check" data-check aria-pressed="false" aria-label="Mark issue 4 as resolved"><span class="box" aria-hidden="true"></span></button><span class="issue-num">4.</span><span class="issue-title">Instagram bio hours omit Tuesday</span><span class="sev bad">Customer</span><span class="chev" aria-hidden="true"></span></summary>
       <div class="issue-body">
         <p class="first-seen">First seen: 2026-11-07 · Still open</p>
         <ul>
@@ -439,7 +446,7 @@
     </details>
 
     <details class="issue" data-sev="bad" data-issue="5">
-      <summary><button type="button" class="check" data-check aria-pressed="false" aria-label="Mark issue 5 as resolved">☐</button><span class="issue-num">5</span><span class="issue-title">Instagram profile ZIP is 46902, studio is 46901</span><span class="sev bad">Customer</span><span class="chev" aria-hidden="true">â¾</span></summary>
+      <summary><button type="button" class="check" data-check aria-pressed="false" aria-label="Mark issue 5 as resolved"><span class="box" aria-hidden="true"></span></button><span class="issue-num">5.</span><span class="issue-title">Instagram profile ZIP is 46902, studio is 46901</span><span class="sev bad">Customer</span><span class="chev" aria-hidden="true"></span></summary>
       <div class="issue-body">
         <p class="first-seen">First seen: 2026-11-07 · Still open</p>
         <ul>
@@ -453,7 +460,7 @@
     </details>
 
     <details class="issue" data-sev="bad" data-issue="6">
-      <summary><button type="button" class="check" data-check aria-pressed="false" aria-label="Mark issue 6 as resolved">☐</button><span class="issue-num">6</span><span class="issue-title">Two different contact emails on the website</span><span class="sev bad">Customer</span><span class="chev" aria-hidden="true">â¾</span></summary>
+      <summary><button type="button" class="check" data-check aria-pressed="false" aria-label="Mark issue 6 as resolved"><span class="box" aria-hidden="true"></span></button><span class="issue-num">6.</span><span class="issue-title">Two different contact emails on the website</span><span class="sev bad">Customer</span><span class="chev" aria-hidden="true"></span></summary>
       <div class="issue-body">
         <p class="first-seen">First seen: 2026-11-07 · Still open</p>
         <ul>
@@ -468,7 +475,7 @@
     </details>
 
     <details class="issue" data-sev="bad" data-issue="7">
-      <summary><button type="button" class="check" data-check aria-pressed="false" aria-label="Mark issue 7 as resolved">☐</button><span class="issue-num">7</span><span class="issue-title">No Thanksgiving closure notice on the website</span><span class="sev bad">Customer</span><span class="chev" aria-hidden="true">â¾</span></summary>
+      <summary><button type="button" class="check" data-check aria-pressed="false" aria-label="Mark issue 7 as resolved"><span class="box" aria-hidden="true"></span></button><span class="issue-num">7.</span><span class="issue-title">No Thanksgiving closure notice on the website</span><span class="sev bad">Customer</span><span class="chev" aria-hidden="true"></span></summary>
       <div class="issue-body">
         <p class="first-seen">First seen: 2026-11-07 · Still open</p>
         <ul>
@@ -483,7 +490,7 @@
     </details>
 
     <details class="issue" data-sev="bad" data-issue="8">
-      <summary><button type="button" class="check" data-check aria-pressed="false" aria-label="Mark issue 8 as resolved">☐</button><span class="issue-num">8</span><span class="issue-title">Kid's Club Donut Worry description is wrong copy</span><span class="sev bad">Customer</span><span class="chev" aria-hidden="true">â¾</span></summary>
+      <summary><button type="button" class="check" data-check aria-pressed="false" aria-label="Mark issue 8 as resolved"><span class="box" aria-hidden="true"></span></button><span class="issue-num">8.</span><span class="issue-title">Kid's Club Donut Worry description is wrong copy</span><span class="sev bad">Customer</span><span class="chev" aria-hidden="true"></span></summary>
       <div class="issue-body">
         <p class="first-seen">First seen: 2026-11-07 · Still open</p>
         <ul>
@@ -498,7 +505,7 @@
     </details>
 
     <details class="issue" data-sev="bad" data-issue="9">
-      <summary><button type="button" class="check" data-check aria-pressed="false" aria-label="Mark issue 9 as resolved">☐</button><span class="issue-num">9</span><span class="issue-title">Stale old address (106 N. Main St.) still live on third-party pages</span><span class="sev bad">Customer</span><span class="chev" aria-hidden="true">â¾</span></summary>
+      <summary><button type="button" class="check" data-check aria-pressed="false" aria-label="Mark issue 9 as resolved"><span class="box" aria-hidden="true"></span></button><span class="issue-num">9.</span><span class="issue-title">Stale old address (106 N. Main St.) still live on third-party pages</span><span class="sev bad">Customer</span><span class="chev" aria-hidden="true"></span></summary>
       <div class="issue-body">
         <p class="first-seen">First seen: 2026-11-07 · Still open</p>
         <ul>
@@ -513,7 +520,7 @@
     </details>
 
     <details class="issue" data-sev="bad" data-issue="19">
-      <summary><button type="button" class="check" data-check aria-pressed="false" aria-label="Mark issue 19 as resolved">☐</button><span class="issue-num">19</span><span class="issue-title">Holiday Clay Day Nov 21 session times/prices on the Facebook flyer disagree with the website</span><span class="sev bad">Customer</span><span class="chev" aria-hidden="true">▾</span></summary>
+      <summary><button type="button" class="check" data-check aria-pressed="false" aria-label="Mark issue 19 as resolved"><span class="box" aria-hidden="true"></span></button><span class="issue-num">19.</span><span class="issue-title">Holiday Clay Day Nov 21 session times/prices on the Facebook flyer disagree with the website</span><span class="sev bad">Customer</span><span class="chev" aria-hidden="true"></span></summary>
       <div class="issue-body">
         <p class="first-seen">First seen: 2026-11-07 · Still open</p>
         <ul>
@@ -531,7 +538,7 @@
     <h3 class="group">Minor <span class="count" id="count-warn">6 open</span></h3>
 
     <details class="issue" data-sev="warn" data-issue="10">
-      <summary><button type="button" class="check" data-check aria-pressed="false" aria-label="Mark issue 10 as resolved">☐</button><span class="issue-num">10</span><span class="issue-title">Typos and stray text on the website</span><span class="sev warn">Minor</span><span class="chev" aria-hidden="true">â¾</span></summary>
+      <summary><button type="button" class="check" data-check aria-pressed="false" aria-label="Mark issue 10 as resolved"><span class="box" aria-hidden="true"></span></button><span class="issue-num">10.</span><span class="issue-title">Typos and stray text on the website</span><span class="sev warn">Minor</span><span class="chev" aria-hidden="true"></span></summary>
       <div class="issue-body">
         <p class="first-seen">First seen: 2026-11-07 · Still open</p>
         <ul>
@@ -547,7 +554,7 @@
     </details>
 
     <details class="issue" data-sev="warn" data-issue="11">
-      <summary><button type="button" class="check" data-check aria-pressed="false" aria-label="Mark issue 11 as resolved">☐</button><span class="issue-num">11</span><span class="issue-title">FAQ page last revised Nov 26, 2023</span><span class="sev warn">Minor</span><span class="chev" aria-hidden="true">â¾</span></summary>
+      <summary><button type="button" class="check" data-check aria-pressed="false" aria-label="Mark issue 11 as resolved"><span class="box" aria-hidden="true"></span></button><span class="issue-num">11.</span><span class="issue-title">FAQ page last revised Nov 26, 2023</span><span class="sev warn">Minor</span><span class="chev" aria-hidden="true"></span></summary>
       <div class="issue-body">
         <p class="first-seen">First seen: 2026-11-07 · Still open</p>
         <ul>
@@ -560,7 +567,7 @@
     </details>
 
     <details class="issue" data-sev="warn" data-issue="12">
-      <summary><button type="button" class="check" data-check aria-pressed="false" aria-label="Mark issue 12 as resolved">☐</button><span class="issue-num">12</span><span class="issue-title">Old event pages (2023â2025) still live and indexed</span><span class="sev warn">Minor</span><span class="chev" aria-hidden="true">â¾</span></summary>
+      <summary><button type="button" class="check" data-check aria-pressed="false" aria-label="Mark issue 12 as resolved"><span class="box" aria-hidden="true"></span></button><span class="issue-num">12.</span><span class="issue-title">Old event pages (2023–2025) still live and indexed</span><span class="sev warn">Minor</span><span class="chev" aria-hidden="true"></span></summary>
       <div class="issue-body">
         <p class="first-seen">First seen: 2026-11-07 · Still open</p>
         <ul>
@@ -574,7 +581,7 @@
     </details>
 
     <details class="issue" data-sev="warn" data-issue="13">
-      <summary><button type="button" class="check" data-check aria-pressed="false" aria-label="Mark issue 13 as resolved">☐</button><span class="issue-num">13</span><span class="issue-title">Thin/missing pages: Girl Scouts, party inclusions, lettering prices, homepage headings</span><span class="sev warn">Minor</span><span class="chev" aria-hidden="true">â¾</span></summary>
+      <summary><button type="button" class="check" data-check aria-pressed="false" aria-label="Mark issue 13 as resolved"><span class="box" aria-hidden="true"></span></button><span class="issue-num">13.</span><span class="issue-title">Thin/missing pages: Girl Scouts, party inclusions, lettering prices, homepage headings</span><span class="sev warn">Minor</span><span class="chev" aria-hidden="true"></span></summary>
       <div class="issue-body">
         <p class="first-seen">First seen: 2026-11-07 · Still open</p>
         <ul>
@@ -588,7 +595,7 @@
     </details>
 
     <details class="issue" data-sev="warn" data-issue="14">
-      <summary><button type="button" class="check" data-check aria-pressed="false" aria-label="Mark issue 14 as resolved">☐</button><span class="issue-num">14</span><span class="issue-title">Kokomo Lantern article prints the website as "firedartonstudio.com"</span><span class="sev warn">Minor</span><span class="chev" aria-hidden="true">â¾</span></summary>
+      <summary><button type="button" class="check" data-check aria-pressed="false" aria-label="Mark issue 14 as resolved"><span class="box" aria-hidden="true"></span></button><span class="issue-num">14.</span><span class="issue-title">Kokomo Lantern article prints the website as "firedartonstudio.com"</span><span class="sev warn">Minor</span><span class="chev" aria-hidden="true"></span></summary>
       <div class="issue-body">
         <p class="first-seen">First seen: 2026-11-07 · Still open</p>
         <ul>
@@ -601,7 +608,7 @@
     </details>
 
     <details class="issue" data-sev="warn" data-issue="18">
-      <summary><button type="button" class="check" data-check aria-pressed="false" aria-label="Mark issue 18 as resolved">☐</button><span class="issue-num">18</span><span class="issue-title">Pinterest chalkboard-sign pin shows TueâThu closing at 7 PM; studio closes at 8 PM</span><span class="sev warn">Minor</span><span class="chev" aria-hidden="true">â¾</span></summary>
+      <summary><button type="button" class="check" data-check aria-pressed="false" aria-label="Mark issue 18 as resolved"><span class="box" aria-hidden="true"></span></button><span class="issue-num">18.</span><span class="issue-title">Pinterest chalkboard-sign pin shows Tue–Thu closing at 7 PM; studio closes at 8 PM</span><span class="sev warn">Minor</span><span class="chev" aria-hidden="true"></span></summary>
       <div class="issue-body">
         <p class="first-seen">First seen: 2026-11-07 · Still open</p>
         <ul>
@@ -620,7 +627,7 @@
     <h3 class="group">Coverage gaps — could not be fully checked <span class="count" id="count-gap">0 open · 3 resolved</span></h3>
 
     <details class="issue resolved" data-sev="gap" data-resolved="true" data-issue="15">
-      <summary><button type="button" class="check" data-check aria-pressed="true" aria-label="Mark issue 15 as resolved">☑</button><span class="issue-num">15</span><span class="issue-title">TikTok content unverifiable</span><span class="sev done">Resolved Nov 7, 2026</span><span class="chev" aria-hidden="true">▾</span></summary>
+      <summary><button type="button" class="check" data-check aria-pressed="true" aria-label="Mark issue 15 as resolved"><span class="box" aria-hidden="true"></span></button><span class="issue-num">15.</span><span class="issue-title">TikTok content unverifiable</span><span class="sev done">Resolved Nov 7, 2026</span><span class="chev" aria-hidden="true"></span></summary>
       <div class="issue-body">
         <p class="first-seen">First seen: 2026-11-07 · Resolved Nov 7, 2026</p>
         <ul>
@@ -633,7 +640,7 @@
     </details>
 
     <details class="issue resolved" data-sev="gap" data-resolved="true" data-issue="16">
-      <summary><button type="button" class="check" data-check aria-pressed="true" aria-label="Mark issue 16 as resolved">☑</button><span class="issue-num">16</span><span class="issue-title">Pinterest completely unverifiable</span><span class="sev done">Resolved Nov 7, 2026</span><span class="chev" aria-hidden="true">▾</span></summary>
+      <summary><button type="button" class="check" data-check aria-pressed="true" aria-label="Mark issue 16 as resolved"><span class="box" aria-hidden="true"></span></button><span class="issue-num">16.</span><span class="issue-title">Pinterest completely unverifiable</span><span class="sev done">Resolved Nov 7, 2026</span><span class="chev" aria-hidden="true"></span></summary>
       <div class="issue-body">
         <p class="first-seen">First seen: 2026-11-07 · Resolved Nov 7, 2026</p>
         <ul>
@@ -646,7 +653,7 @@
     </details>
 
     <details class="issue resolved" data-sev="gap" data-resolved="true" data-issue="17">
-      <summary><button type="button" class="check" data-check aria-pressed="true" aria-label="Mark issue 17 as resolved">☑</button><span class="issue-num">17</span><span class="issue-title">Facebook effectively unauditable via the connector</span><span class="sev done">Resolved Nov 7, 2026</span><span class="chev" aria-hidden="true">â¾</span></summary>
+      <summary><button type="button" class="check" data-check aria-pressed="true" aria-label="Mark issue 17 as resolved"><span class="box" aria-hidden="true"></span></button><span class="issue-num">17.</span><span class="issue-title">Facebook effectively unauditable via the connector</span><span class="sev done">Resolved Nov 7, 2026</span><span class="chev" aria-hidden="true"></span></summary>
       <div class="issue-body">
         <p class="first-seen">First seen: 2026-11-07 · Resolved Nov 7, 2026</p>
         <ul>
@@ -805,7 +812,6 @@ function applyCard(el){
   var checked = isChecked(el);
   var num = el.getAttribute('data-issue');
   if (btn) {
-    btn.textContent = checked ? '\u2611' : '\u2610';
     btn.setAttribute('aria-pressed', checked ? 'true' : 'false');
     btn.setAttribute('aria-label', checked ? ('Mark issue ' + num + ' as open') : ('Mark issue ' + num + ' as resolved'));
     btn.disabled = !fbReady;
