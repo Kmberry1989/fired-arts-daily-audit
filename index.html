@@ -248,6 +248,49 @@
   footer{ margin-top:44px; color:var(--ink-3); font-size:14px; border-top:1px solid var(--line); padding-top:16px; }
 
 
+  /* ---------- splash ---------- */
+  #splash{
+    position:fixed; inset:0; z-index:100;
+    background:radial-gradient(120% 90% at 50% 0%, #f6e3d3 0%, #fbf8f4 55%, #f4ece3 100%);
+    display:flex; align-items:center; justify-content:center;
+    padding:28px 20px; overflow-y:auto;
+  }
+  @media (prefers-color-scheme: dark){
+    #splash{ background:radial-gradient(120% 90% at 50% 0%, #3a2718 0%, #17120e 55%, #221a14 100%); }
+  }
+  #splash[hidden]{ display:none; }
+  .splash-inner{ width:100%; max-width:560px; margin:auto; text-align:center; }
+  .splash-brand{
+    font-family:"Newsreader", Georgia, serif; font-weight:700;
+    font-size:clamp(22px, 6vw, 30px); color:var(--clay); letter-spacing:.02em;
+  }
+  .splash-kicker{
+    margin-top:14px; font-size:13px; font-weight:700; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--clay);
+  }
+  #splash-title{
+    font-family:"Newsreader", Georgia, serif; font-size:clamp(30px, 8vw, 44px);
+    line-height:1.08; font-weight:700; margin:10px 0 8px; letter-spacing:-.01em;
+  }
+  .splash-tag{ margin:0 0 10px; font-size:17px; color:var(--ink-2); }
+  .splash-meta{ margin:0 0 26px; font-size:15px; color:var(--ink-2); }
+  .splash-signin{
+    appearance:none; display:block; width:100%; max-width:340px; margin:0 auto;
+    border:1px solid var(--clay); background:var(--clay); color:#fff; border-radius:999px;
+    padding:13px 20px; font:inherit; font-size:17px; font-weight:700; cursor:pointer;
+  }
+  .splash-signin:hover{ background:var(--clay-strong); }
+  .splash-continue{
+    appearance:none; display:block; width:100%; max-width:340px; margin:12px auto 0;
+    border:1px solid var(--line); background:var(--surface); color:var(--clay-strong);
+    border-radius:999px; padding:11px 20px; font:inherit; font-size:15.5px; font-weight:700; cursor:pointer;
+  }
+  .splash-continue[hidden]{ display:none; }
+  .splash-who{ margin:16px 0 0; font-weight:700; font-size:15.5px; }
+  .splash-status{ margin:10px 0 0; font-size:14.5px; color:var(--bad); font-weight:600; }
+  .splash-note{ margin:18px auto 0; max-width:46ch; font-size:14.5px; color:var(--ink-2); }
+  body.splash-open{ overflow:hidden; }
+
   /* ---------- sign-in / write-back ---------- */
   .auth-bar{
     margin-top:22px; background:var(--surface); border:1px solid var(--line);
@@ -299,79 +342,34 @@
   }
 </style>
 </head>
-<body>
+<body class="splash-open">
+<div id="splash" role="dialog" aria-modal="true" aria-labelledby="splash-title">
+  <div class="splash-inner">
+    <div class="splash-brand">Fired Arts Studio</div>
+    <div class="splash-kicker">Daily Public-Info Audit · Report #1</div>
+    <h1 id="splash-title">Fired Arts Daily Public-Info Audit</h1>
+    <p class="splash-tag">Fired Arts Studio — what the public sees, checked</p>
+    <p class="splash-meta">Saturday, November 7, 2026 · America/Indiana/Indianapolis<br />111 W Sycamore St, Kokomo, IN 46901 · (765) 450-3088</p>
+    <button type="button" class="splash-signin" id="splash-signin">Sign in with Google</button>
+    <button type="button" class="splash-continue" id="splash-continue">Continue without signing in</button>
+    <p class="splash-who" id="splash-who" hidden></p>
+    <p class="splash-status" id="splash-status" role="status"></p>
+    <p class="splash-note">Sign-in is only needed to check things off — the report itself is public. Your checks are saved to the audit, and the morning audit picks them up.</p>
+  </div>
+</div>
 <div class="wrap">
 
-  <header class="report-head">
-    <div class="report-no">Daily Public-Info Audit · Report #1</div>
-    <h1>Fired Arts Studio — what the public sees, checked</h1>
-    <p class="head-meta">
-      <strong>Saturday, November 7, 2026</strong> · America/Indiana/Indianapolis<br />
-      Fired Arts Studio, 111 W Sycamore St, Kokomo, IN 46901 · (765) 450-3088<br />
-      Proofreading, date &amp; time fact-checking, completeness, continuity, and conflicting information across the studio's website and public social listings — caught before customers and staff trip over them.
-    </p>
+  <section aria-labelledby="issues-h">
+    <h2 class="sec" id="issues-h">Issues</h2>
+    <p class="sec-sub">Every issue is a checklist item: open issues show ☐ and repeat in each daily report until you declare them resolved in chat; resolved ones show ☑ with the title crossed out and stay on the list for reference. Tap an issue to expand its evidence and fix — each one ends with its sources as clickable links.</p>
 
-    <div class="auth-bar" id="auth-bar">
+<div class="auth-bar" id="auth-bar">
       <span class="hint">Sign in with Google to record a resolution — your checks are saved to the audit, and the morning audit picks them up.</span>
       <span class="who" id="auth-who" hidden></span>
       <button type="button" class="auth-btn" id="auth-signin">Sign in with Google</button>
       <button type="button" class="auth-btn secondary" id="auth-signout" hidden>Sign out</button>
       <div class="auth-status" id="auth-status" role="status"></div>
     </div>
-
-    <div class="stat-row" role="group" aria-label="Issue counts">
-      <div class="stat"><div class="n" id="stat-open">16</div><div class="l">Open issues</div></div>
-      <div class="stat s-bad"><div class="n" id="stat-bad">10</div><div class="l">Confusing for customers</div></div>
-      <div class="stat s-warn"><div class="n" id="stat-warn">6</div><div class="l">Minor</div></div>
-      <div class="stat s-gap"><div class="n" id="stat-gap">0</div><div class="l">Coverage gaps</div></div>
-      <div class="stat s-ok"><div class="n" id="stat-resolved">3</div><div class="l">Resolved — crossed out, kept for reference</div></div>
-    </div>
-    <p class="summary-line"><strong><span id="sum-open">16</span> open</strong> · <strong><span id="sum-resolved">3</span> resolved</strong> (crossed out, kept for reference) · <span id="sum-bad">10</span> confusing for customers · <span id="sum-warn">6</span> minor · <span id="sum-gap">0</span> coverage gaps</p>
-
-    <div class="priority">
-      <h2>Top priority</h2>
-      <p>The Nov 21 kids' clay session, <strong>Santa's Little Wheel Potters</strong>, shows an <strong>11:30 PM end time</strong> on the website (Issue 1). Sources: <a href="https://www.firedartsstudio.com/event-details/santas-little-wheel-potters">website event page</a> · <a href="https://www.threads.com/@firedartsstudio">Clay Vember carousel (Threads)</a></p>
-      <p>The Nov 14 kids' <strong>Turkey Handprint</strong> event has <strong>three different times</strong> across the website and social graphics (Issue 2). Sources: <a href="https://www.firedartsstudio.com/event-details/turkeyhandprint">website event page</a> · <a href="https://www.instagram.com/reel/DfVoWZMJxPV/">Instagram reel</a> · <a href="https://www.threads.com/@firedartsstudio">Clay Vember carousel (Threads)</a></p>
-      <p>The Nov 21 <strong>Holiday Clay Day</strong> adult and teen clay sessions disagree on time and price between the Facebook flyer and the website (Issue 19). Sources: <a href="https://www.facebook.com/FiredArtsStudio/posts/pfbid0uJXHMyRBUakJGpy3wiYvhGfjApWwD2bQgbwE5KiarUudkERCbyVWsd7iY76edtQ4l">Facebook Clay-Vember flyer (Nov 5)</a></p>
-      <p><strong>Resolved:</strong> Issue 15 (TikTok content unverifiable), Issue 16 (Pinterest completely unverifiable), and Issue 17 (Facebook effectively unauditable via the connector) — all closed Nov 7, 2026, crossed out on the list below and kept for reference. The Pinterest read surfaced a new finding, filed as Issue 18; the Facebook public-Page read surfaced Issue 19.</p>
-    </div>
-  </header>
-
-  <section aria-labelledby="events-h">
-    <h2 class="sec" id="events-h">Upcoming events — cross-check</h2>
-    <p class="sec-sub">Every upcoming event on the website (the booking source of truth) compared against Instagram, Facebook, Threads, and other public listings.</p>
-    <div class="table-scroll">
-    <table class="events">
-      <thead>
-        <tr><th scope="col">Event</th><th scope="col">Website date / time / price</th><th scope="col">Other sources</th><th scope="col">Verdict</th></tr>
-      </thead>
-      <tbody>
-        <tr><td class="ev" data-label="Event">Vintage Tree Painting</td><td class="when" data-label="Website">Sat Nov 7, 2:00–5:00 PM · $85–$195</td><td class="srcs" data-label="Other sources"><a href="https://www.instagram.com/firedartsstudio/">IG</a>, <a href="https://www.facebook.com/FiredArtsStudio">FB</a>, local guides all 2–5 PM</td><td class="verdict-cell"><span class="verdict ok">Agree</span></td></tr>
-        <tr><td class="ev" data-label="Event">Weekly Canvas: Christmas Ornaments</td><td class="when" data-label="Website">Tue Nov 10, 5:30–7:30 PM · $39</td><td class="srcs" data-label="Other sources"><a href="https://www.instagram.com/firedartsstudio/">IG</a> Oct 31 (#2), Nov 1 calendar, <a href="https://www.facebook.com/FiredArtsStudio">FB</a> event agrees</td><td class="verdict-cell"><span class="verdict ok">Agree</span></td></tr>
-        <tr><td class="ev" data-label="Event"><a href="https://www.firedartsstudio.com/event-details/turkeyhandprint">Kid's Pop-Up: Turkey Handprint Ornament</a></td><td class="when" data-label="Website">Sat Nov 14, 11:00 AM · $20 (no end time)</td><td class="srcs" data-label="Other sources"><a href="https://www.facebook.com/FiredArtsStudio/posts/pfbid0uJXHMyRBUakJGpy3wiYvhGfjApWwD2bQgbwE5KiarUudkERCbyVWsd7iY76edtQ4l">FB flyer</a>: 11:00am–12:30pm · <a href="https://www.threads.com/@firedartsstudio">Clay Vember graphic</a>: "1:00pm-12:30pm" · <a href="https://www.instagram.com/reel/DfVoWZMJxPV/">IG reel graphic</a>: "1:00am to 12:30pm"</td><td class="verdict-cell"><span class="verdict conflict">Conflict</span><span class="vnote">Issue 2</span></td></tr>
-        <tr><td class="ev" data-label="Event">Vintage Tree Painting</td><td class="when" data-label="Website">Sat Nov 14, 6:00–8:30 PM · $85–$195</td><td class="srcs" data-label="Other sources"><a href="https://www.instagram.com/firedartsstudio/">IG</a> Oct 15 reel</td><td class="verdict-cell"><span class="verdict ok">Agree</span></td></tr>
-        <tr><td class="ev" data-label="Event">Autumn Leaves Watercolor Serving Bowl</td><td class="when" data-label="Website">Sun Nov 15, 12:00–2:30 PM · $75</td><td class="srcs" data-label="Other sources">Nov 1 calendar (<a href="https://www.instagram.com/firedartsstudio/">Instagram</a>)</td><td class="verdict-cell"><span class="verdict ok">Agree</span><span class="vnote">Wording note — Issue 10</span></td></tr>
-        <tr><td class="ev" data-label="Event">Weekly Canvas: Count Your Blessings</td><td class="when" data-label="Website">Tue Nov 17, 5:30–7:30 PM · $39</td><td class="srcs" data-label="Other sources"><a href="https://www.instagram.com/firedartsstudio/">IG</a> Oct 31 (#3)</td><td class="verdict-cell"><span class="verdict ok">Agree</span></td></tr>
-        <tr><td class="ev" data-label="Event">Vintage Tree Painting</td><td class="when" data-label="Website">Wed Nov 18, 6:00–8:30 PM · $85–$195</td><td class="srcs" data-label="Other sources">Website only</td><td class="verdict-cell"><span class="verdict none">No conflict</span></td></tr>
-        <tr><td class="ev" data-label="Event"><a href="https://www.firedartsstudio.com/event-details/donutworry">Kid's Club: Donut Worry Clay Coaster Set</a></td><td class="when" data-label="Website">Thu Nov 19, 5:00–6:30 PM · $20, ages 5+</td><td class="srcs" data-label="Other sources">Social carousel and <a href="https://www.facebook.com/FiredArtsStudio">FB flyer</a> agree</td><td class="verdict-cell"><span class="verdict ok">Agree</span><span class="vnote">On facts; description wrong — Issue 8</span></td></tr>
-        <tr><td class="ev" data-label="Event"><a href="https://www.firedartsstudio.com/event-details/santas-little-wheel-potters">Santa's Little Wheel Potters</a></td><td class="when" data-label="Website">Sat Nov 21, 10:00 AM–11:30 PM · $55, ages 6–10</td><td class="srcs" data-label="Other sources"><a href="https://www.threads.com/@firedartsstudio">Clay Vember carousel (Threads)</a> / <a href="https://www.instagram.com/firedartsstudio/">Instagram</a>: 10:00–11:30 AM</td><td class="verdict-cell"><span class="verdict conflict">Conflict</span><span class="vnote">Issue 1</span></td></tr>
-        <tr><td class="ev" data-label="Event">Teen Clay Wheel Creations</td><td class="when" data-label="Website">Sat Nov 21, 12:30–2:30 PM · $60, ages 11–17</td><td class="srcs" data-label="Other sources"><a href="https://www.facebook.com/FiredArtsStudio/posts/pfbid0uJXHMyRBUakJGpy3wiYvhGfjApWwD2bQgbwE5KiarUudkERCbyVWsd7iY76edtQ4l">FB flyer</a> small print reads 12:30–2:00</td><td class="verdict-cell"><span class="verdict conflict">Conflict</span><span class="vnote">Issue 19</span></td></tr>
-        <tr><td class="ev" data-label="Event">Adult Plate and Candle Holder</td><td class="when" data-label="Website">Sat Nov 21, 3:00–5:00 PM · $65, 18+</td><td class="srcs" data-label="Other sources"><a href="https://www.facebook.com/FiredArtsStudio/posts/pfbid0uJXHMyRBUakJGpy3wiYvhGfjApWwD2bQgbwE5KiarUudkERCbyVWsd7iY76edtQ4l">FB flyer</a> reads ~5:00–6:30 p.m., $45</td><td class="verdict-cell"><span class="verdict conflict">Conflict</span><span class="vnote">Issue 19</span></td></tr>
-        <tr><td class="ev" data-label="Event">Vintage Tree Painting</td><td class="when" data-label="Website">Sun Nov 22, 12:00–2:30 PM · $85–$195</td><td class="srcs" data-label="Other sources">Website only</td><td class="verdict-cell"><span class="verdict none">No conflict</span></td></tr>
-        <tr><td class="ev" data-label="Event"><a href="https://www.firedartsstudio.com/event-details/forrestgnome">Weekly Canvas: Forrest Gnome</a></td><td class="when" data-label="Website">Tue Nov 24, 5:30–7:30 PM · $39</td><td class="srcs" data-label="Other sources"><a href="https://www.instagram.com/p/DfLa9cygYBK/">IG Oct 31 post</a> says Poinsettias</td><td class="verdict-cell"><span class="verdict conflict">Conflict</span><span class="vnote">Issue 3</span></td></tr>
-        <tr><td class="ev" data-label="Event">Wine Down Wednesday: Handbuilt Unique Mug</td><td class="when" data-label="Website">Wed Nov 25, 6:00–8:30 PM · $35</td><td class="srcs" data-label="Other sources"><a href="https://www.instagram.com/firedartsstudio/">Social carousel (Instagram)</a> (no price stated)</td><td class="verdict-cell"><span class="verdict ok">Agree</span><span class="vnote">On date/time</span></td></tr>
-        <tr><td class="ev" data-label="Event">Thanksgiving</td><td class="when" data-label="Website">Thu Nov 26 — no notice; regular hours shown</td><td class="srcs" data-label="Other sources">Social calendar (<a href="https://www.instagram.com/firedartsstudio/">Instagram</a> / <a href="https://www.facebook.com/FiredArtsStudio">Facebook</a>) + FB cover flyer: CLOSED</td><td class="verdict-cell"><span class="verdict gap">Gap</span><span class="vnote">Issue 7</span></td></tr>
-        <tr><td class="ev" data-label="Event">Vintage Tree Painting</td><td class="when" data-label="Website">Fri Nov 27, 11:00 AM–1:30 PM · $85–$195</td><td class="srcs" data-label="Other sources">Website only</td><td class="verdict-cell"><span class="verdict none">No conflict</span></td></tr>
-        <tr><td class="ev" data-label="Event">Weekly Canvas: Christmas Moose</td><td class="when" data-label="Website">Tue Dec 1, 5:30–7:30 PM · $39</td><td class="srcs" data-label="Other sources">Website only</td><td class="verdict-cell"><span class="verdict none">No conflict</span></td></tr>
-        <tr><td class="ev" data-label="Event">Vintage Tree Painting (2 sessions)</td><td class="when" data-label="Website">Fri Dec 4, 5:30–8:00 PM; Sat Dec 5, 10:00 AM–12:30 PM and 1:30–4:00 PM</td><td class="srcs" data-label="Other sources">Website only</td><td class="verdict-cell"><span class="verdict none">No conflict</span></td></tr>
-      </tbody>
-    </table>
-    </div>
-  </section>
-
-  <section aria-labelledby="issues-h">
-    <h2 class="sec" id="issues-h">Issues</h2>
-    <p class="sec-sub">Every issue is a checklist item: open issues show ☐ and repeat in each daily report until you declare them resolved in chat; resolved ones show ☑ with the title crossed out and stay on the list for reference. Tap an issue to expand its evidence and fix — each one ends with its sources as clickable links.</p>
 
     <div class="filter-bar">
       <div class="row" role="group" aria-label="Filter issues by severity">
@@ -669,7 +667,81 @@
     </div>
   </section>
 
-  <section aria-labelledby="ok-h">
+  <section aria-labelledby="summary-h">
+    <h2 class="sec" id="summary-h">Summary</h2>
+<p class="head-meta">
+      <strong>Saturday, November 7, 2026</strong> · America/Indiana/Indianapolis<br />
+      Fired Arts Studio, 111 W Sycamore St, Kokomo, IN 46901 · (765) 450-3088<br />
+      Proofreading, date &amp; time fact-checking, completeness, continuity, and conflicting information across the studio's website and public social listings — caught before customers and staff trip over them.
+    </p>
+
+<div class="stat-row" role="group" aria-label="Issue counts">
+      <div class="stat"><div class="n" id="stat-open">16</div><div class="l">Open issues</div></div>
+      <div class="stat s-bad"><div class="n" id="stat-bad">10</div><div class="l">Confusing for customers</div></div>
+      <div class="stat s-warn"><div class="n" id="stat-warn">6</div><div class="l">Minor</div></div>
+      <div class="stat s-gap"><div class="n" id="stat-gap">0</div><div class="l">Coverage gaps</div></div>
+      <div class="stat s-ok"><div class="n" id="stat-resolved">3</div><div class="l">Resolved — crossed out, kept for reference</div></div>
+    </div>
+<p class="summary-line"><strong><span id="sum-open">16</span> open</strong> · <strong><span id="sum-resolved">3</span> resolved</strong> (crossed out, kept for reference) · <span id="sum-bad">10</span> confusing for customers · <span id="sum-warn">6</span> minor · <span id="sum-gap">0</span> coverage gaps</p>
+
+<div class="priority">
+      <h2>Top priority</h2>
+      <p>The Nov 21 kids' clay session, <strong>Santa's Little Wheel Potters</strong>, shows an <strong>11:30 PM end time</strong> on the website (Issue 1). Sources: <a href="https://www.firedartsstudio.com/event-details/santas-little-wheel-potters">website event page</a> · <a href="https://www.threads.com/@firedartsstudio">Clay Vember carousel (Threads)</a></p>
+      <p>The Nov 14 kids' <strong>Turkey Handprint</strong> event has <strong>three different times</strong> across the website and social graphics (Issue 2). Sources: <a href="https://www.firedartsstudio.com/event-details/turkeyhandprint">website event page</a> · <a href="https://www.instagram.com/reel/DfVoWZMJxPV/">Instagram reel</a> · <a href="https://www.threads.com/@firedartsstudio">Clay Vember carousel (Threads)</a></p>
+      <p>The Nov 21 <strong>Holiday Clay Day</strong> adult and teen clay sessions disagree on time and price between the Facebook flyer and the website (Issue 19). Sources: <a href="https://www.facebook.com/FiredArtsStudio/posts/pfbid0uJXHMyRBUakJGpy3wiYvhGfjApWwD2bQgbwE5KiarUudkERCbyVWsd7iY76edtQ4l">Facebook Clay-Vember flyer (Nov 5)</a></p>
+      <p><strong>Resolved:</strong> Issue 15 (TikTok content unverifiable), Issue 16 (Pinterest completely unverifiable), and Issue 17 (Facebook effectively unauditable via the connector) — all closed Nov 7, 2026, crossed out on the list below and kept for reference. The Pinterest read surfaced a new finding, filed as Issue 18; the Facebook public-Page read surfaced Issue 19.</p>
+    </div>
+  </section>
+
+<section aria-labelledby="src-h">
+    <h2 class="sec" id="src-h">Sources checked</h2>
+    <p class="sec-sub">Read Saturday, Nov 7, 2026, ~5:30 PM EST. Website: no 404s found.</p>
+    <div class="src-grid">
+      <div class="src"><div class="name"><a href="https://www.firedartsstudio.com/">Website — firedartsstudio.com</a></div><div class="detail">Home, events listing, all 18 event-detail pages, FAQ, party packages + 4 booking pages, contact, Girl Scouts page, canvas gallery.</div></div>
+      <div class="src"><div class="name"><a href="https://www.instagram.com/firedartsstudio/">Instagram — @firedartsstudio</a></div><div class="detail">Full read of all 35 posts Oct 8–Nov 7, 2026. 544 followers, 1,220 posts, business account.</div></div>
+      <div class="src"><div class="name"><a href="https://www.facebook.com/FiredArtsStudio">Facebook — Fired Arts Studio</a></div><div class="detail">Read via the public Page in the browser Nov 7 — no login wall; 10 most recent posts with verbatim captions. 5.6K followers, 90 following, 96% recommend (48 reviews). See Issue 17 (resolved).</div></div>
+      <div class="src"><div class="name"><a href="https://www.threads.com/@firedartsstudio">Threads — @firedartsstudio</a></div><div class="detail">Official, 75 followers; Nov 5 "Clay Vember" carousel post.</div></div>
+      <div class="src"><div class="name"><a href="https://www.tiktok.com/@firedartsstudio">TikTok — @firedartsstudio</a></div><div class="detail">Read signed-in via browser Nov 7: bio, 472 followers, 492 Likes; 34 posts loaded; 5 most recent checked — no new conflicts. See Issue 15 (resolved).</div></div>
+      <div class="src"><div class="name"><a href="https://www.pinterest.com/KokomoPottery">Pinterest — KokomoPottery</a></div><div class="detail">Read signed-in via browser Nov 7: bio, 6 boards (99 pins), all 16 Created pins checked — no events named. See Issues 16 (resolved) and 18.</div></div>
+      <div class="src"><div class="name">Google Business Profile</div><div class="detail">4.8 stars, 21 reviews; hours and address consistent with the website.</div></div>
+      <div class="src"><div class="name">Third-party pages</div><div class="detail"><a href="https://allevents.in/pages/top-organizer?city=kokomo">AllEvents.in organizer page</a>, <a href="https://app.getoccasion.com/p/n/2cznsnkB/v5">GetOccasion booking page</a>, BBB (A+), <a href="https://www.kokomolantern.com/blog/i/82728347/fired-arts-studio-opens-new-location">Kokomo Lantern article</a>.</div></div>
+      <div class="src"><div class="name">Not found</div><div class="detail">No YouTube, X/Twitter, Yelp, or Nextdoor presence found via search — reported as not found, not proven absent.</div></div>
+    </div>
+  </section>
+
+<section aria-labelledby="events-h">
+    <h2 class="sec" id="events-h">Upcoming events — cross-check</h2>
+    <p class="sec-sub">Every upcoming event on the website (the booking source of truth) compared against Instagram, Facebook, Threads, and other public listings.</p>
+    <div class="table-scroll">
+    <table class="events">
+      <thead>
+        <tr><th scope="col">Event</th><th scope="col">Website date / time / price</th><th scope="col">Other sources</th><th scope="col">Verdict</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="ev" data-label="Event">Vintage Tree Painting</td><td class="when" data-label="Website">Sat Nov 7, 2:00–5:00 PM · $85–$195</td><td class="srcs" data-label="Other sources"><a href="https://www.instagram.com/firedartsstudio/">IG</a>, <a href="https://www.facebook.com/FiredArtsStudio">FB</a>, local guides all 2–5 PM</td><td class="verdict-cell"><span class="verdict ok">Agree</span></td></tr>
+        <tr><td class="ev" data-label="Event">Weekly Canvas: Christmas Ornaments</td><td class="when" data-label="Website">Tue Nov 10, 5:30–7:30 PM · $39</td><td class="srcs" data-label="Other sources"><a href="https://www.instagram.com/firedartsstudio/">IG</a> Oct 31 (#2), Nov 1 calendar, <a href="https://www.facebook.com/FiredArtsStudio">FB</a> event agrees</td><td class="verdict-cell"><span class="verdict ok">Agree</span></td></tr>
+        <tr><td class="ev" data-label="Event"><a href="https://www.firedartsstudio.com/event-details/turkeyhandprint">Kid's Pop-Up: Turkey Handprint Ornament</a></td><td class="when" data-label="Website">Sat Nov 14, 11:00 AM · $20 (no end time)</td><td class="srcs" data-label="Other sources"><a href="https://www.facebook.com/FiredArtsStudio/posts/pfbid0uJXHMyRBUakJGpy3wiYvhGfjApWwD2bQgbwE5KiarUudkERCbyVWsd7iY76edtQ4l">FB flyer</a>: 11:00am–12:30pm · <a href="https://www.threads.com/@firedartsstudio">Clay Vember graphic</a>: "1:00pm-12:30pm" · <a href="https://www.instagram.com/reel/DfVoWZMJxPV/">IG reel graphic</a>: "1:00am to 12:30pm"</td><td class="verdict-cell"><span class="verdict conflict">Conflict</span><span class="vnote">Issue 2</span></td></tr>
+        <tr><td class="ev" data-label="Event">Vintage Tree Painting</td><td class="when" data-label="Website">Sat Nov 14, 6:00–8:30 PM · $85–$195</td><td class="srcs" data-label="Other sources"><a href="https://www.instagram.com/firedartsstudio/">IG</a> Oct 15 reel</td><td class="verdict-cell"><span class="verdict ok">Agree</span></td></tr>
+        <tr><td class="ev" data-label="Event">Autumn Leaves Watercolor Serving Bowl</td><td class="when" data-label="Website">Sun Nov 15, 12:00–2:30 PM · $75</td><td class="srcs" data-label="Other sources">Nov 1 calendar (<a href="https://www.instagram.com/firedartsstudio/">Instagram</a>)</td><td class="verdict-cell"><span class="verdict ok">Agree</span><span class="vnote">Wording note — Issue 10</span></td></tr>
+        <tr><td class="ev" data-label="Event">Weekly Canvas: Count Your Blessings</td><td class="when" data-label="Website">Tue Nov 17, 5:30–7:30 PM · $39</td><td class="srcs" data-label="Other sources"><a href="https://www.instagram.com/firedartsstudio/">IG</a> Oct 31 (#3)</td><td class="verdict-cell"><span class="verdict ok">Agree</span></td></tr>
+        <tr><td class="ev" data-label="Event">Vintage Tree Painting</td><td class="when" data-label="Website">Wed Nov 18, 6:00–8:30 PM · $85–$195</td><td class="srcs" data-label="Other sources">Website only</td><td class="verdict-cell"><span class="verdict none">No conflict</span></td></tr>
+        <tr><td class="ev" data-label="Event"><a href="https://www.firedartsstudio.com/event-details/donutworry">Kid's Club: Donut Worry Clay Coaster Set</a></td><td class="when" data-label="Website">Thu Nov 19, 5:00–6:30 PM · $20, ages 5+</td><td class="srcs" data-label="Other sources">Social carousel and <a href="https://www.facebook.com/FiredArtsStudio">FB flyer</a> agree</td><td class="verdict-cell"><span class="verdict ok">Agree</span><span class="vnote">On facts; description wrong — Issue 8</span></td></tr>
+        <tr><td class="ev" data-label="Event"><a href="https://www.firedartsstudio.com/event-details/santas-little-wheel-potters">Santa's Little Wheel Potters</a></td><td class="when" data-label="Website">Sat Nov 21, 10:00 AM–11:30 PM · $55, ages 6–10</td><td class="srcs" data-label="Other sources"><a href="https://www.threads.com/@firedartsstudio">Clay Vember carousel (Threads)</a> / <a href="https://www.instagram.com/firedartsstudio/">Instagram</a>: 10:00–11:30 AM</td><td class="verdict-cell"><span class="verdict conflict">Conflict</span><span class="vnote">Issue 1</span></td></tr>
+        <tr><td class="ev" data-label="Event">Teen Clay Wheel Creations</td><td class="when" data-label="Website">Sat Nov 21, 12:30–2:30 PM · $60, ages 11–17</td><td class="srcs" data-label="Other sources"><a href="https://www.facebook.com/FiredArtsStudio/posts/pfbid0uJXHMyRBUakJGpy3wiYvhGfjApWwD2bQgbwE5KiarUudkERCbyVWsd7iY76edtQ4l">FB flyer</a> small print reads 12:30–2:00</td><td class="verdict-cell"><span class="verdict conflict">Conflict</span><span class="vnote">Issue 19</span></td></tr>
+        <tr><td class="ev" data-label="Event">Adult Plate and Candle Holder</td><td class="when" data-label="Website">Sat Nov 21, 3:00–5:00 PM · $65, 18+</td><td class="srcs" data-label="Other sources"><a href="https://www.facebook.com/FiredArtsStudio/posts/pfbid0uJXHMyRBUakJGpy3wiYvhGfjApWwD2bQgbwE5KiarUudkERCbyVWsd7iY76edtQ4l">FB flyer</a> reads ~5:00–6:30 p.m., $45</td><td class="verdict-cell"><span class="verdict conflict">Conflict</span><span class="vnote">Issue 19</span></td></tr>
+        <tr><td class="ev" data-label="Event">Vintage Tree Painting</td><td class="when" data-label="Website">Sun Nov 22, 12:00–2:30 PM · $85–$195</td><td class="srcs" data-label="Other sources">Website only</td><td class="verdict-cell"><span class="verdict none">No conflict</span></td></tr>
+        <tr><td class="ev" data-label="Event"><a href="https://www.firedartsstudio.com/event-details/forrestgnome">Weekly Canvas: Forrest Gnome</a></td><td class="when" data-label="Website">Tue Nov 24, 5:30–7:30 PM · $39</td><td class="srcs" data-label="Other sources"><a href="https://www.instagram.com/p/DfLa9cygYBK/">IG Oct 31 post</a> says Poinsettias</td><td class="verdict-cell"><span class="verdict conflict">Conflict</span><span class="vnote">Issue 3</span></td></tr>
+        <tr><td class="ev" data-label="Event">Wine Down Wednesday: Handbuilt Unique Mug</td><td class="when" data-label="Website">Wed Nov 25, 6:00–8:30 PM · $35</td><td class="srcs" data-label="Other sources"><a href="https://www.instagram.com/firedartsstudio/">Social carousel (Instagram)</a> (no price stated)</td><td class="verdict-cell"><span class="verdict ok">Agree</span><span class="vnote">On date/time</span></td></tr>
+        <tr><td class="ev" data-label="Event">Thanksgiving</td><td class="when" data-label="Website">Thu Nov 26 — no notice; regular hours shown</td><td class="srcs" data-label="Other sources">Social calendar (<a href="https://www.instagram.com/firedartsstudio/">Instagram</a> / <a href="https://www.facebook.com/FiredArtsStudio">Facebook</a>) + FB cover flyer: CLOSED</td><td class="verdict-cell"><span class="verdict gap">Gap</span><span class="vnote">Issue 7</span></td></tr>
+        <tr><td class="ev" data-label="Event">Vintage Tree Painting</td><td class="when" data-label="Website">Fri Nov 27, 11:00 AM–1:30 PM · $85–$195</td><td class="srcs" data-label="Other sources">Website only</td><td class="verdict-cell"><span class="verdict none">No conflict</span></td></tr>
+        <tr><td class="ev" data-label="Event">Weekly Canvas: Christmas Moose</td><td class="when" data-label="Website">Tue Dec 1, 5:30–7:30 PM · $39</td><td class="srcs" data-label="Other sources">Website only</td><td class="verdict-cell"><span class="verdict none">No conflict</span></td></tr>
+        <tr><td class="ev" data-label="Event">Vintage Tree Painting (2 sessions)</td><td class="when" data-label="Website">Fri Dec 4, 5:30–8:00 PM; Sat Dec 5, 10:00 AM–12:30 PM and 1:30–4:00 PM</td><td class="srcs" data-label="Other sources">Website only</td><td class="verdict-cell"><span class="verdict none">No conflict</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+<section aria-labelledby="ok-h">
     <h2 class="sec" id="ok-h">What checked out fine</h2>
     <div class="checks">
       <ul>
@@ -686,29 +758,13 @@
     </div>
   </section>
 
-  <section aria-labelledby="src-h">
-    <h2 class="sec" id="src-h">Sources checked</h2>
-    <p class="sec-sub">Read Saturday, Nov 7, 2026, ~5:30 PM EST. Website: no 404s found.</p>
-    <div class="src-grid">
-      <div class="src"><div class="name"><a href="https://www.firedartsstudio.com/">Website — firedartsstudio.com</a></div><div class="detail">Home, events listing, all 18 event-detail pages, FAQ, party packages + 4 booking pages, contact, Girl Scouts page, canvas gallery.</div></div>
-      <div class="src"><div class="name"><a href="https://www.instagram.com/firedartsstudio/">Instagram — @firedartsstudio</a></div><div class="detail">Full read of all 35 posts Oct 8–Nov 7, 2026. 544 followers, 1,220 posts, business account.</div></div>
-      <div class="src"><div class="name"><a href="https://www.facebook.com/FiredArtsStudio">Facebook — Fired Arts Studio</a></div><div class="detail">Read via the public Page in the browser Nov 7 — no login wall; 10 most recent posts with verbatim captions. 5.6K followers, 90 following, 96% recommend (48 reviews). See Issue 17 (resolved).</div></div>
-      <div class="src"><div class="name"><a href="https://www.threads.com/@firedartsstudio">Threads — @firedartsstudio</a></div><div class="detail">Official, 75 followers; Nov 5 "Clay Vember" carousel post.</div></div>
-      <div class="src"><div class="name"><a href="https://www.tiktok.com/@firedartsstudio">TikTok — @firedartsstudio</a></div><div class="detail">Read signed-in via browser Nov 7: bio, 472 followers, 492 Likes; 34 posts loaded; 5 most recent checked — no new conflicts. See Issue 15 (resolved).</div></div>
-      <div class="src"><div class="name"><a href="https://www.pinterest.com/KokomoPottery">Pinterest — KokomoPottery</a></div><div class="detail">Read signed-in via browser Nov 7: bio, 6 boards (99 pins), all 16 Created pins checked — no events named. See Issues 16 (resolved) and 18.</div></div>
-      <div class="src"><div class="name">Google Business Profile</div><div class="detail">4.8 stars, 21 reviews; hours and address consistent with the website.</div></div>
-      <div class="src"><div class="name">Third-party pages</div><div class="detail"><a href="https://allevents.in/pages/top-organizer?city=kokomo">AllEvents.in organizer page</a>, <a href="https://app.getoccasion.com/p/n/2cznsnkB/v5">GetOccasion booking page</a>, BBB (A+), <a href="https://www.kokomolantern.com/blog/i/82728347/fired-arts-studio-opens-new-location">Kokomo Lantern article</a>.</div></div>
-      <div class="src"><div class="name">Not found</div><div class="detail">No YouTube, X/Twitter, Yelp, or Nextdoor presence found via search — reported as not found, not proven absent.</div></div>
-    </div>
-  </section>
-
-  <div class="resolve-box">
+<div class="resolve-box">
     <h2>How to declare an issue resolved</h2>
     <p>Reply in chat naming the issue number (e.g. "Issue 1 is resolved"). An issue is only marked resolved when you say so, or when a later audit shows the public info was actually fixed — with the fixed wording quoted.</p>
     <p>Until then, every open issue above is repeated in each daily report.</p>
   </div>
 
-  <footer>
+<footer>
     Report #1 · Saturday, November 7, 2026 · Fired Arts Studio public-info audit. The next daily report carries every issue above forward until it is declared resolved.
   </footer>
 </div>
@@ -732,6 +788,18 @@ const statusEl = document.getElementById('auth-status');
 const signinBtn = document.getElementById('auth-signin');
 const signoutBtn = document.getElementById('auth-signout');
 const whoEl = document.getElementById('auth-who');
+const splash = document.getElementById('splash');
+const splashSigninBtn = document.getElementById('splash-signin');
+const splashContinueBtn = document.getElementById('splash-continue');
+const splashWhoEl = document.getElementById('splash-who');
+const splashStatusEl = document.getElementById('splash-status');
+function setSplashStatus(msg){
+  if (splashStatusEl) splashStatusEl.textContent = msg || '';
+}
+function hideSplash(){
+  if (splash) splash.hidden = true;
+  document.body.classList.remove('splash-open');
+}
 let currentFilter = 'all';
 let noteActive = false;
 let auth = null, db = null, currentUser = null;
@@ -888,21 +956,31 @@ issues.forEach(function(el){
   });
 });
 
-signinBtn.addEventListener('click', async function(){
-  if (!auth) { setStatus('Write-back is not set up yet on this page — the Firebase config still needs to be added.', true); return; }
+async function doSignIn(statusFn){
+  if (!auth) { statusFn('Write-back is not set up yet on this page — the Firebase config still needs to be added.', true); return false; }
   try {
     var provider = new GoogleAuthProvider();
     var cred = await signInWithPopup(auth, provider);
     if (!ALLOWED_EMAILS.includes(cred.user.email || '')) {
       await signOut(auth);
-      setStatus('That Google account is not on the audit allowlist — sign in as Kyle or Rochelle.', true);
+      statusFn('That Google account is not on the audit allowlist — sign in as Kyle or Rochelle.', true);
+      return false;
     }
+    statusFn('');
+    return true;
   } catch (e) {
-    if (e && e.code === 'auth/popup-closed-by-user') setStatus('Sign-in was closed.');
-    else if (e && e.code === 'auth/unauthorized-domain') setStatus('This site is not an authorized domain for Google sign-in yet.', true);
-    else setStatus('Sign-in failed (' + (e && e.code ? e.code : 'unknown error') + ').', true);
+    if (e && e.code === 'auth/popup-closed-by-user') statusFn('Sign-in was closed.');
+    else if (e && e.code === 'auth/unauthorized-domain') statusFn('This site is not an authorized domain for Google sign-in yet.', true);
+    else statusFn('Sign-in failed (' + (e && e.code ? e.code : 'unknown error') + ').', true);
+    return false;
   }
+}
+signinBtn.addEventListener('click', async function(){ await doSignIn(setStatus); });
+if (splashSigninBtn) splashSigninBtn.addEventListener('click', async function(){
+  var ok = await doSignIn(setSplashStatus);
+  if (ok) hideSplash();
 });
+if (splashContinueBtn) splashContinueBtn.addEventListener('click', hideSplash);
 signoutBtn.addEventListener('click', async function(){ try { await signOut(auth); } catch (e) {} });
 
 // ---- Firebase init + initial load ----
@@ -918,10 +996,13 @@ if (window.FIREBASE_CONFIG) {
         whoEl.hidden = false;
         signinBtn.hidden = true;
         signoutBtn.hidden = false;
+        if (splashWhoEl) { splashWhoEl.textContent = 'Signed in as ' + user.email; splashWhoEl.hidden = false; }
+        hideSplash();
       } else {
         whoEl.hidden = true;
         signinBtn.hidden = false;
         signoutBtn.hidden = true;
+        if (splashWhoEl) splashWhoEl.hidden = true;
       }
     });
     getDocs(collection(db, 'auditResolutions')).then(function(snap){
