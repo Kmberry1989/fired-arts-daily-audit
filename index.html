@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="color-scheme" content="light dark" />
 <link rel="icon" href="data:," />
-<title>Fired Arts Daily Public-Info Audit — Report #1</title>
+<title>Fired Arts Daily Public-Info Audit — Report #2</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
@@ -353,7 +353,7 @@
 <div id="splash" role="dialog" aria-modal="true" aria-labelledby="splash-title">
   <div class="splash-inner">
     <h1 id="splash-title">Fired Arts Studio<br />Public-Facing Audit</h1>
-    <p class="splash-meta">Report #1 · Saturday, November 7, 2026</p>
+    <p class="splash-meta">Report #2 · Sunday, November 8, 2026</p>
     <button type="button" class="splash-signin" id="splash-signin">Sign in with Google</button>
     <button type="button" class="splash-continue" id="splash-continue">Continue without signing in</button>
     <p class="splash-who" id="splash-who" hidden></p>
@@ -374,29 +374,28 @@
 
     <div class="filter-bar">
       <div class="row" role="group" aria-label="Filter issues by severity">
-        <button class="chip" type="button" data-filter="all" aria-pressed="true">All · 16 open + 3 resolved</button>
-        <button class="chip" type="button" data-filter="bad" aria-pressed="false">Confusing for customers · 10</button>
+        <button class="chip" type="button" data-filter="all" aria-pressed="true">All · 18 open + 4 resolved</button>
+        <button class="chip" type="button" data-filter="bad" aria-pressed="false">Confusing for customers · 12</button>
         <button class="chip" type="button" data-filter="warn" aria-pressed="false">Minor · 6</button>
         <button class="chip" type="button" data-filter="gap" aria-pressed="false">Coverage gaps · 0</button>
-        <button class="chip" type="button" data-filter="resolved" aria-pressed="false">Resolved · 3</button>
+        <button class="chip" type="button" data-filter="resolved" aria-pressed="false">Resolved · 4</button>
         <span class="filter-note" id="filter-note"></span>
       </div>
     </div>
 
     <div class="sev-group" data-group="bad">
-    <h3 class="group">Confusing for customers <span class="count" id="count-bad">10 open</span></h3>
+    <h3 class="group">Confusing for customers <span class="count" id="count-bad">12 open</span></h3>
 
-    <details class="issue" data-sev="bad" open data-issue="1">
-      <summary><button type="button" class="check" data-check aria-pressed="false" aria-label="Mark issue 1 as resolved"><span class="box" aria-hidden="true"></span></button><span class="issue-num">1.</span><span class="issue-title">Santa's Little Wheel Potters end time reads "11:30 PM" on the website</span><span class="sev bad">Customer</span><span class="chev" aria-hidden="true"></span></summary>
+    <details class="issue resolved" data-sev="bad" data-resolved="true" data-issue="1">
+      <summary><button type="button" class="check" data-check aria-pressed="true" aria-label="Mark issue 1 as open"><span class="box" aria-hidden="true"></span></button><span class="issue-num">1.</span><span class="issue-title">Santa's Little Wheel Potters end time reads "11:30 PM" on the website</span><span class="sev done">Resolved Nov 8, 2026</span><span class="chev" aria-hidden="true"></span></summary>
       <div class="issue-body">
-        <p class="first-seen">First seen: 2026-11-07 · Still open</p>
+        <p class="first-seen">First seen: 2026-11-07 · Resolved Nov 8, 2026 (by evidence)</p>
         <ul>
-          <li>Website (<a href="https://www.firedartsstudio.com/event-details/santas-little-wheel-potters">event page</a>): "Nov 21, 2026, 10:00 AM – 11:30 PM" — structured data confirms 23:30. A 13.5-hour kids' session.</li>
-          <li>Social (<a href="https://www.instagram.com/firedartsstudio/">Instagram</a> / <a href="https://www.threads.com/@firedartsstudio">Threads</a> / <a href="https://www.facebook.com/FiredArtsStudio">Facebook</a> "Clay Vember" carousel, Nov 5): 10:00–11:30 AM, $55, ages 6–10.</li>
-          <li>Facebook (Nov 7 reel + Nov 5 flyer): Holiday Clay Day Nov 21, kids/teens/adults — no time given for the kids' Santa's Little Wheel Potters session, so the website's 11:30 PM still stands unconfirmed.</li>
+          <li>Website (<a href="https://www.firedartsstudio.com/event-details/santas-little-wheel-potters">event page</a>) now reads: "Nov 21, 2026, 10:00 AM – 11:30 AM" — structured data confirms 10:00–11:30. Verified live Nov 8, 2026.</li>
+          <li>Social (<a href="https://www.instagram.com/firedartsstudio/">Instagram</a> / <a href="https://www.threads.com/@firedartsstudio">Threads</a> / <a href="https://www.facebook.com/FiredArtsStudio">Facebook</a> "Clay Vember" carousel, Nov 5): 10:00–11:30 AM, $55, ages 6–10 — now agrees with the website.</li>
         </ul>
-        <p class="harm"><strong>What a customer gets wrong:</strong> a parent reading the website sees a session ending at 11:30 PM.</p>
-        <p class="fix"><strong>Fix:</strong> website end time should be 11:30 AM.</p>
+        <p class="harm"><strong>What a customer gets wrong:</strong> nothing now — parents see the correct 1.5-hour session ending at 11:30 AM.</p>
+        <p class="fix"><strong>Fix applied:</strong> the studio corrected the website end time from 11:30 PM to 11:30 AM.</p>
         <p class="src-line"><strong>Sources:</strong> <a href="https://www.firedartsstudio.com/event-details/santas-little-wheel-potters">Website event page</a> · <a href="https://www.threads.com/@firedartsstudio">Clay Vember carousel — Threads</a> · <a href="https://www.instagram.com/firedartsstudio/">Instagram</a> · <a href="https://www.facebook.com/FiredArtsStudio">Facebook</a></p>
       </div>
     </details>
@@ -410,6 +409,7 @@
           <li>"Clay Vember" carousel graphic (<a href="https://www.facebook.com/FiredArtsStudio">Facebook</a> / <a href="https://www.threads.com/@firedartsstudio">Threads</a>, Nov 5): "1:00pm-12:30pm" — end time before start time.</li>
           <li>Instagram reel graphic (Nov 4, <a href="https://www.instagram.com/reel/DfVoWZMJxPV/">reel</a>): "Saturday, November 14 from 1:00am to 12:30pm" — 1:00 AM.</li>
           <li>Facebook Clay-Vember flyer (Nov 5, <a href="https://www.facebook.com/FiredArtsStudio/posts/pfbid0uJXHMyRBUakJGpy3wiYvhGfjApWwD2bQgbwE5KiarUudkERCbyVWsd7iY76edtQ4l">post</a>): "Saturday, November 14, 11:00am–12:30pm" — the only self-consistent time, and it matches the website's 11:00 AM start and the separate Facebook event post (Sat 14 Nov at 11:00).</li>
+          <li>Corroborated Nov 8: the Facebook Nov 2 "November at a glance" image also lists "Kid's Pop-Up: Turkey Handprint Ornament Saturday, November 14 • 11:00am-12:30pm" — two Facebook sources now agree on 11:00 AM–12:30 PM; the website still lists no end time.</li>
         </ul>
         <p class="harm"><strong>What a customer gets wrong:</strong> could show up at the wrong hour — or at 1 AM.</p>
         <p class="fix"><strong>Fix:</strong> confirm 11:00 AM–12:30 PM (flyer + event post agree), add the end time to the website page, and fix the carousel and reel graphics.</p>
@@ -482,6 +482,7 @@
           <li><a href="https://www.firedartsstudio.com/">Website</a> shows regular Thursday hours (11 AM–8 PM) for Nov 26 and lists a Vintage Tree session Fri Nov 27, 11:00 AM–1:30 PM.</li>
           <li>Social (Nov 1 November calendar image, <a href="https://www.instagram.com/firedartsstudio/">IG</a>/<a href="https://www.facebook.com/FiredArtsStudio">FB</a>): closed on Thanksgiving, Nov 26.</li>
           <li>Facebook cover-photo Holiday Hours flyer (seen Nov 7): Thu Nov 26, 2026 CLOSED; Fri Nov 27, 2026 10AM–9PM; Thu Dec 24, 2026 11AM–6PM; Fri Dec 25, 2026 CLOSED; Thu Dec 31, 2026 11AM–8PM; Fri Jan 1, 2027 CLOSED. The Dec/Jan hours are from the flyer only, not yet cross-checked against the website.</li>
+          <li>Nov 8: the website's home-page calendar shows NO events on Thu Nov 26 — consistent with the studio being closed that day — but the site still shows regular Thursday hours with no closure notice anywhere.</li>
         </ul>
         <p class="harm"><strong>What a customer gets wrong:</strong> a website visitor could plan a Thanksgiving visit and find the studio closed.</p>
         <p class="fix"><strong>Fix:</strong> add the Nov 26 closure to the website.</p>
@@ -525,11 +526,59 @@
         <p class="first-seen">First seen: 2026-11-07 · Still open</p>
         <ul>
           <li>Facebook Clay-Vember flyer (Nov 5, <a href="https://www.facebook.com/FiredArtsStudio/posts/pfbid0uJXHMyRBUakJGpy3wiYvhGfjApWwD2bQgbwE5KiarUudkERCbyVWsd7iY76edtQ4l">post</a> — read from the flyer image, small print partly legible): Adult Plate and Candle Holder Workshop, ages 18+, $45 per person, Sat Nov 21, about 5:00–6:30 p.m.; Teen Clay Wheel Creations, ages 11–17, Sat Nov 21, 12:30–2:00 p.m. (price not legible).</li>
-          <li>Website: Adult Plate and Candle Holder, Sat Nov 21, 3:00–5:00 PM, $65, 18+; Teen Clay Wheel Creations, Sat Nov 21, 12:30–2:30 PM, $60, ages 11–17.</li>
+          <li>Website: <a href="https://www.firedartsstudio.com/event-details/clay-wheels-christmas-cheer">Adult Plate and Candle Holder</a>, Sat Nov 21, 3:00–5:00 PM, $65, 18+; <a href="https://www.firedartsstudio.com/event-details/teen-clay-wheel-creations">Teen Clay Wheel Creations</a>, Sat Nov 21, 12:30–2:30 PM, $60, ages 11–17. Both re-verified Nov 8, unchanged.</li>
+          <li>Facebook created a "Holiday Clay Day" event Nov 7 (Sat, 21 Nov at 10:00, 1 person going) — no new times/prices stated.</li>
+          <li>Firestore: Kyle set issue 19 resolved=false on Nov 8 (03:51 UTC) — stays open.</li>
         </ul>
         <p class="harm"><strong>What a customer gets wrong:</strong> could arrive at the wrong time or expect the wrong price for either session.</p>
         <p class="fix"><strong>Fix:</strong> confirm the true times and prices for both Nov 21 sessions (the flyer small print needs a clearer read) and correct whichever source is wrong.</p>
         <p class="src-line"><strong>Sources:</strong> <a href="https://www.facebook.com/FiredArtsStudio/posts/pfbid0uJXHMyRBUakJGpy3wiYvhGfjApWwD2bQgbwE5KiarUudkERCbyVWsd7iY76edtQ4l">Facebook Clay-Vember flyer (Nov 5)</a></p>
+      </div>
+    </details>
+
+    <details class="issue" data-sev="bad" open data-issue="20">
+      <summary><button type="button" class="check" data-check aria-pressed="false" aria-label="Mark issue 20 as resolved"><span class="box" aria-hidden="true"></span></button><span class="issue-num">20.</span><span class="issue-title">Facebook November calendar image says Friday closes at 8 PM; website says 9 PM</span><span class="sev bad">Customer</span><span class="chev" aria-hidden="true"></span></summary>
+      <div class="issue-body">
+        <p class="first-seen">First seen: 2026-11-08 · Still open</p>
+        <ul>
+          <li>Facebook November calendar image footer (<a href="https://www.facebook.com/FiredArtsStudio">Facebook Page</a>, seen Nov 8): "OPEN: TUE-FRIDAY 11 AM-8 PM SATURDAY 10 AM-9 PM &amp; SUNDAY 12-5 PM".</li>
+          <li>Website (<a href="https://www.firedartsstudio.com/">home</a>, <a href="https://www.firedartsstudio.com/contact">contact page</a>, Google Business Profile): Fri 10:00 AM–9:00 PM.</li>
+        </ul>
+        <p class="harm"><strong>What a customer gets wrong:</strong> reading the Facebook calendar image, they'd think the studio closes at 8 PM on Fridays (and opens at 11, not 10) — a Friday evening visit could be cut short or missed.</p>
+        <p class="fix"><strong>Fix:</strong> correct the Friday hours on the Facebook calendar image to 10 AM–9 PM (or repost with the right hours).</p>
+        <p class="src-line"><strong>Sources:</strong> <a href="https://www.facebook.com/FiredArtsStudio">Facebook — November calendar image</a> · <a href="https://www.firedartsstudio.com/">Studio website (hours)</a> · <a href="https://www.firedartsstudio.com/contact">Contact page</a></p>
+      </div>
+    </details>
+
+    <details class="issue" data-sev="bad" open data-issue="21">
+      <summary><button type="button" class="check" data-check aria-pressed="false" aria-label="Mark issue 21 as resolved"><span class="box" aria-hidden="true"></span></button><span class="issue-num">21.</span><span class="issue-title">Website buttons have low color contrast (white text on pale tan)</span><span class="sev bad">Customer</span><span class="chev" aria-hidden="true"></span></summary>
+      <div class="issue-body">
+        <p class="first-seen">First seen: 2026-11-08 · Still open</p>
+        <ul>
+          <li>Upcoming Workshops page (<a href="https://www.firedartsstudio.com/upcoming-workshops">upcoming-workshops</a>, desktop check Nov 8): "Buy Ticket" buttons are white text on a pale tan/beige button and are hard to read.</li>
+          <li>Party Packages page: "Book Now" buttons and the "Kids Party Options" toggle are also white text on tan (low contrast).</li>
+        </ul>
+        <p class="harm"><strong>What a customer gets wrong:</strong> visitors — especially older customers or anyone in bright light — may not be able to read the buttons that take them to checkout.</p>
+        <p class="fix"><strong>Fix:</strong> darken the button background or the text so the label is legible.</p>
+        <p class="src-line"><strong>Sources:</strong> <a href="https://www.firedartsstudio.com/upcoming-workshops">Upcoming Workshops page</a> · <a href="https://www.firedartsstudio.com/">Studio website — Party Packages</a></p>
+      </div>
+    </details>
+
+    <details class="issue" data-sev="bad" open data-issue="22">
+      <summary><button type="button" class="check" data-check aria-pressed="false" aria-label="Mark issue 22 as resolved"><span class="box" aria-hidden="true"></span></button><span class="issue-num">22.</span><span class="issue-title">Website accessibility: broken heading order, unlabeled form field, generic link/button text, filename alt text</span><span class="sev bad">Customer</span><span class="chev" aria-hidden="true"></span></summary>
+      <div class="issue-body">
+        <p class="first-seen">First seen: 2026-11-08 · Still open</p>
+        <ul>
+          <li>Home page (<a href="https://www.firedartsstudio.com/">home</a>, desktop check Nov 8): no H1 at all; the first headings are level 3, and the only level-2 heading ("Contact Us!") appears in the footer after the level-3s. Six identical "Book Now" links have no distinguishing text. A gallery button is named only "image". Several images use filenames or the generic "IMG_4516.jpeg" as their accessible name instead of descriptive alt text (e.g. party images "Kids-birthday-party-9-scaled.jpg", "Sip &amp; Paint.jpg", "Team Building.jpg", "Back-to-School-10.jpg").</li>
+          <li>Contact page (<a href="https://www.firedartsstudio.com/contact">contact</a>): heading order broken — "Contact Us!" is level 4, followed by TWO level-1 headings ("Fired Arts Studio", "Hours"). The message field ("Type your message here...") has no accessible name/label (Name, Email, and Subject fields do have names).</li>
+          <li>Upcoming Workshops page (<a href="https://www.firedartsstudio.com/upcoming-workshops">upcoming-workshops</a>): "More info" and "Buy Ticket" repeat identically 18 times with no distinguishing accessible text. Event card titles are truncated with ellipses (e.g. "Weekly Canvas Painting Workshop: Christmas…") so a visitor must click through to read the full title.</li>
+          <li>Party Packages page: on load, the H1 "Let's have a party @ Fired Arts!" is clipped at the top — the tops of the letters are hidden behind the sticky header.</li>
+          <li>What works: a "Skip to Main Content" link is present, keyboard focus is clearly visible (blue outline), no keyboard trap observed; event page heading order is good (H1 → H2s → H3).</li>
+        </ul>
+        <p class="harm"><strong>What a customer gets wrong:</strong> a screen-reader or keyboard-only visitor gets a confusing page structure, can't tell the six "Book Now" links apart, and can't label the contact message field; image content is invisible to them.</p>
+        <p class="fix"><strong>Fix:</strong> add a proper H1 and fix heading order on home/contact, label the message field, give repeated links distinguishing accessible text, and write real alt text for images.</p>
+        <p class="src-line"><strong>Sources:</strong> <a href="https://www.firedartsstudio.com/">Home page</a> · <a href="https://www.firedartsstudio.com/contact">Contact page</a> · <a href="https://www.firedartsstudio.com/upcoming-workshops">Upcoming Workshops page</a></p>
+        <p class="note"><strong>Mobile viewport:</strong> NOT checked Nov 8 — the audit browser has a fixed desktop viewport with no resize/device-emulation control. Mobile layout remains unverified.</p>
       </div>
     </details>
     </div>
@@ -542,8 +591,8 @@
       <div class="issue-body">
         <p class="first-seen">First seen: 2026-11-07 · Still open</p>
         <ul>
-          <li>"availibilty" on all four <a href="https://www.firedartsstudio.com/">party booking pages</a> ("Check out our availibilty and select the time that works for you.").</li>
-          <li><a href="https://www.firedartsstudio.com/">Canvas Painting Gallery</a>: a piece spelled "Eifel Tower" (should be "Eiffel Tower") and a stray unedited placeholder heading "## Heading 2" between the adult and kids sections.</li>
+          <li>"availibilty" — still present Nov 8 on the <a href="https://www.firedartsstudio.com/booking-calendar/party-up-package">party booking page</a> ("Check out our availibilty and select the time that works for you.").</li>
+          <li><a href="https://www.firedartsstudio.com/canvaspaintinggallery">Canvas Painting Gallery</a>: a piece spelled "Eifel Tower" (should be "Eiffel Tower") and a stray unedited placeholder heading "## Heading 2" (a level-2 heading, verified by element inspection) between the adult and kids sections — both still present Nov 8.</li>
           <li>Autumn Leaves listing: title says "Serving Bowl" but the body calls the piece a "serving platter".</li>
           <li><a href="https://www.firedartsstudio.com/event-details/santas-little-wheel-potters">Santa's Little Wheel Potters</a> "About" body trails off mid-sentence: "For this session…"</li>
           <li>Adult Clay Day listing title has a double space ("Cheer:&#8203;  Adult Plate").</li>
@@ -558,7 +607,8 @@
       <div class="issue-body">
         <p class="first-seen">First seen: 2026-11-07 · Still open</p>
         <ul>
-          <li>FAQ header: "FAQ's &amp; General Info rev. 11.26.23" — nearly 3 years old.</li>
+          <li>FAQ header: "FAQ's &amp; General Info rev. 11.26.23" — nearly 3 years old. Re-verified Nov 8.</li>
+          <li>The FAQ page lives at <a href="https://www.firedartsstudio.com/how-does-this-work">firedartsstudio.com/how-does-this-work</a> ("How Does This Work?" in nav); /faq returns 404.</li>
           <li>Several statements may be stale (e.g. $5 return-to-finish fee, 30-day hold, lettering prices "posted by the checkout counter" only).</li>
         </ul>
         <p class="fix"><strong>Fix:</strong> review the FAQ against current studio practice and update the revision date.</p>
@@ -670,39 +720,40 @@
   <section aria-labelledby="summary-h">
     <h2 class="sec" id="summary-h">Summary</h2>
 <p class="head-meta">
-      <strong>Saturday, November 7, 2026</strong> · America/Indiana/Indianapolis<br />
+      <strong>Sunday, November 8, 2026</strong> · America/Indiana/Indianapolis<br />
       Fired Arts Studio, 111 W Sycamore St, Kokomo, IN 46901 · (765) 450-3088<br />
       Proofreading, date &amp; time fact-checking, completeness, continuity, and conflicting information across the studio's website and public social listings — caught before customers and staff trip over them.
     </p>
 
 <div class="stat-row" role="group" aria-label="Issue counts">
-      <div class="stat"><div class="n" id="stat-open">16</div><div class="l">Open issues</div></div>
-      <div class="stat s-bad"><div class="n" id="stat-bad">10</div><div class="l">Confusing for customers</div></div>
+      <div class="stat"><div class="n" id="stat-open">18</div><div class="l">Open issues</div></div>
+      <div class="stat s-bad"><div class="n" id="stat-bad">12</div><div class="l">Confusing for customers</div></div>
       <div class="stat s-warn"><div class="n" id="stat-warn">6</div><div class="l">Minor</div></div>
       <div class="stat s-gap"><div class="n" id="stat-gap">0</div><div class="l">Coverage gaps</div></div>
-      <div class="stat s-ok"><div class="n" id="stat-resolved">3</div><div class="l">Resolved</div></div>
+      <div class="stat s-ok"><div class="n" id="stat-resolved">4</div><div class="l">Resolved</div></div>
     </div>
-<p class="summary-line"><strong><span id="sum-open">16</span> open</strong> · <strong><span id="sum-resolved">3</span> resolved</strong> · <span id="sum-bad">10</span> confusing for customers · <span id="sum-warn">6</span> minor · <span id="sum-gap">0</span> coverage gaps</p>
+<p class="summary-line"><strong><span id="sum-open">18</span> open</strong> · <strong><span id="sum-resolved">4</span> resolved</strong> · <span id="sum-bad">12</span> confusing for customers · <span id="sum-warn">6</span> minor · <span id="sum-gap">0</span> coverage gaps</p>
 
 <div class="priority">
       <h2>Top priority</h2>
-      <p>The Nov 21 kids' clay session, <strong>Santa's Little Wheel Potters</strong>, shows an <strong>11:30 PM end time</strong> on the website (Issue 1). Sources: <a href="https://www.firedartsstudio.com/event-details/santas-little-wheel-potters">website event page</a> · <a href="https://www.threads.com/@firedartsstudio">Clay Vember carousel (Threads)</a></p>
+      <p><strong>Fixed since yesterday:</strong> the Nov 21 kids' clay session, <strong>Santa's Little Wheel Potters</strong>, now reads <strong>10:00 AM – 11:30 AM</strong> on the website (Issue 1, resolved Nov 8). Sources: <a href="https://www.firedartsstudio.com/event-details/santas-little-wheel-potters">website event page</a> · <a href="https://www.threads.com/@firedartsstudio">Clay Vember carousel (Threads)</a></p>
+      <p><strong>New conflict:</strong> the Facebook November calendar image says Friday closes at <strong>8 PM</strong> while the website says <strong>9 PM</strong> (Issue 20). Sources: <a href="https://www.facebook.com/FiredArtsStudio">Facebook Page</a> · <a href="https://www.firedartsstudio.com/">website</a></p>
       <p>The Nov 14 kids' <strong>Turkey Handprint</strong> event has <strong>three different times</strong> across the website and social graphics (Issue 2). Sources: <a href="https://www.firedartsstudio.com/event-details/turkeyhandprint">website event page</a> · <a href="https://www.instagram.com/reel/DfVoWZMJxPV/">Instagram reel</a> · <a href="https://www.threads.com/@firedartsstudio">Clay Vember carousel (Threads)</a></p>
       <p>The Nov 21 <strong>Holiday Clay Day</strong> adult and teen clay sessions disagree on time and price between the Facebook flyer and the website (Issue 19). Sources: <a href="https://www.facebook.com/FiredArtsStudio/posts/pfbid0uJXHMyRBUakJGpy3wiYvhGfjApWwD2bQgbwE5KiarUudkERCbyVWsd7iY76edtQ4l">Facebook Clay-Vember flyer (Nov 5)</a></p>
-      <p><strong>Resolved:</strong> Issue 15 (TikTok content unverifiable), Issue 16 (Pinterest completely unverifiable), and Issue 17 (Facebook effectively unauditable via the connector) — all closed Nov 7, 2026. The Pinterest read surfaced a new finding, filed as Issue 18; the Facebook public-Page read surfaced Issue 19.</p>
+      <p><strong>Resolved:</strong> Issue 1 (Santa's Little Wheel Potters 11:30 PM → 11:30 AM, fixed on the website, verified live Nov 8, 2026), Issue 15 (TikTok content unverifiable), Issue 16 (Pinterest completely unverifiable), and Issue 17 (Facebook effectively unauditable via the connector) — Issues 15–17 closed Nov 7, 2026. The Pinterest read surfaced a new finding, filed as Issue 18; the Facebook public-Page read surfaced Issue 19. The desktop visual/accessibility check surfaced Issues 21 and 22; the Facebook calendar image surfaced Issue 20.</p>
     </div>
   </section>
 
 <section aria-labelledby="src-h">
     <h2 class="sec" id="src-h">Sources checked</h2>
-    <p class="sec-sub">Read Saturday, Nov 7, 2026, ~5:30 PM EST. Website: no 404s found.</p>
+    <p class="sec-sub">Read Sunday, Nov 8, 2026, ~10:45 AM EST. Website: /events and /faq return 404 (real pages live at /upcoming-workshops and /how-does-this-work). Mobile viewport not checked — the audit browser has a fixed desktop viewport.</p>
     <div class="src-grid">
-      <div class="src"><div class="name"><a href="https://www.firedartsstudio.com/">Website — firedartsstudio.com</a></div><div class="detail">Home, events listing, all 18 event-detail pages, FAQ, party packages + 4 booking pages, contact, Girl Scouts page, canvas gallery.</div></div>
-      <div class="src"><div class="name"><a href="https://www.instagram.com/firedartsstudio/">Instagram — @firedartsstudio</a></div><div class="detail">Full read of all 35 posts Oct 8–Nov 7, 2026. 544 followers, 1,220 posts, business account.</div></div>
-      <div class="src"><div class="name"><a href="https://www.facebook.com/FiredArtsStudio">Facebook — Fired Arts Studio</a></div><div class="detail">Read via the public Page in the browser Nov 7 — no login wall; 10 most recent posts with verbatim captions. 5.6K followers, 90 following, 96% recommend (48 reviews). See Issue 17 (resolved).</div></div>
-      <div class="src"><div class="name"><a href="https://www.threads.com/@firedartsstudio">Threads — @firedartsstudio</a></div><div class="detail">Official, 75 followers; Nov 5 "Clay Vember" carousel post.</div></div>
-      <div class="src"><div class="name"><a href="https://www.tiktok.com/@firedartsstudio">TikTok — @firedartsstudio</a></div><div class="detail">Read signed-in via browser Nov 7: bio, 472 followers, 492 Likes; 34 posts loaded; 5 most recent checked — no new conflicts. See Issue 15 (resolved).</div></div>
-      <div class="src"><div class="name"><a href="https://www.pinterest.com/KokomoPottery">Pinterest — KokomoPottery</a></div><div class="detail">Read signed-in via browser Nov 7: bio, 6 boards (99 pins), all 16 Created pins checked — no events named. See Issues 16 (resolved) and 18.</div></div>
+      <div class="src"><div class="name"><a href="https://www.firedartsstudio.com/">Website — firedartsstudio.com</a></div><div class="detail">Home, events listing (/upcoming-workshops), event-detail pages (Santa's Little Wheel Potters, Turkey Handprint, Forrest Gnome, Donut Worry, Teen Clay Wheel, Adult Plate and Candle Holder), contact, party booking page, canvas gallery, FAQ page (/how-does-this-work). Desktop visual + accessibility check on home, upcoming-workshops, contact, and one event page.</div></div>
+      <div class="src"><div class="name"><a href="https://www.instagram.com/firedartsstudio/">Instagram — @firedartsstudio</a></div><div class="detail">Full read via instagram-cli; profile + posts since Nov 7 (Nov 7 holiday-inventory reel, Nov 7 Holiday Clay Day reel). 544 followers, 1,220 posts, business account. Bio still omits Tuesday; ZIP still 46902.</div></div>
+      <div class="src"><div class="name"><a href="https://www.facebook.com/FiredArtsStudio">Facebook — Fired Arts Studio</a></div><div class="detail">Read via the public Page in the browser Nov 8 — no login wall; most recent posts Nov 1–8 with verbatim captions. 5.6K followers, 91 following, 96% recommend (48 reviews). Post permalinks cannot be obtained. See Issue 17 (resolved) and Issue 20 (new).</div></div>
+      <div class="src"><div class="name"><a href="https://www.threads.com/@firedartsstudio">Threads — @firedartsstudio</a></div><div class="detail">Official, 75 followers; most recent posts Nov 4–7 (Nov 7 inventory, Nov 6 gift-card bonus, Nov 4 Turkey Handprint). "Link in first comment" could not be checked — replies require sign-in.</div></div>
+      <div class="src"><div class="name"><a href="https://www.tiktok.com/@firedartsstudio">TikTok — @firedartsstudio</a></div><div class="detail">Read signed-in via browser Nov 8 (slider-puzzle bot check cleared first): bio, 477 followers, 504 Likes; 52 videos; most recent checked — no new conflicts. See Issue 15 (resolved).</div></div>
+      <div class="src"><div class="name"><a href="https://www.pinterest.com/KokomoPottery">Pinterest — KokomoPottery</a></div><div class="detail">Read signed-in via browser Nov 8: bio, 6 boards (99 pins), all 16 Created pins checked — no events named, no November 2026 pin found. See Issues 16 (resolved) and 18.</div></div>
       <div class="src"><div class="name">Google Business Profile</div><div class="detail">4.8 stars, 21 reviews; hours and address consistent with the website.</div></div>
       <div class="src"><div class="name">Third-party pages</div><div class="detail"><a href="https://allevents.in/pages/top-organizer?city=kokomo">AllEvents.in organizer page</a>, <a href="https://app.getoccasion.com/p/n/2cznsnkB/v5">GetOccasion booking page</a>, BBB (A+), <a href="https://www.kokomolantern.com/blog/i/82728347/fired-arts-studio-opens-new-location">Kokomo Lantern article</a>.</div></div>
       <div class="src"><div class="name">Not found</div><div class="detail">No YouTube, X/Twitter, Yelp, or Nextdoor presence found via search — reported as not found, not proven absent.</div></div>
@@ -718,21 +769,21 @@
         <tr><th scope="col">Event</th><th scope="col">Website date / time / price</th><th scope="col">Other sources</th><th scope="col">Verdict</th></tr>
       </thead>
       <tbody>
-        <tr><td class="ev" data-label="Event">Vintage Tree Painting</td><td class="when" data-label="Website">Sat Nov 7, 2:00–5:00 PM · $85–$195</td><td class="srcs" data-label="Other sources"><a href="https://www.instagram.com/firedartsstudio/">IG</a>, <a href="https://www.facebook.com/FiredArtsStudio">FB</a>, local guides all 2–5 PM</td><td class="verdict-cell"><span class="verdict ok">Agree</span></td></tr>
+        <tr><td class="ev" data-label="Event">Vintage Tree Painting</td><td class="when" data-label="Website">Sat Nov 7, 2:00–5:00 PM · $85–$195 (past)</td><td class="srcs" data-label="Other sources"><a href="https://www.instagram.com/firedartsstudio/">IG</a>, <a href="https://www.facebook.com/FiredArtsStudio">FB</a>, local guides all 2–5 PM</td><td class="verdict-cell"><span class="verdict ok">Agree</span></td></tr>
         <tr><td class="ev" data-label="Event">Weekly Canvas: Christmas Ornaments</td><td class="when" data-label="Website">Tue Nov 10, 5:30–7:30 PM · $39</td><td class="srcs" data-label="Other sources"><a href="https://www.instagram.com/firedartsstudio/">IG</a> Oct 31 (#2), Nov 1 calendar, <a href="https://www.facebook.com/FiredArtsStudio">FB</a> event agrees</td><td class="verdict-cell"><span class="verdict ok">Agree</span></td></tr>
-        <tr><td class="ev" data-label="Event"><a href="https://www.firedartsstudio.com/event-details/turkeyhandprint">Kid's Pop-Up: Turkey Handprint Ornament</a></td><td class="when" data-label="Website">Sat Nov 14, 11:00 AM · $20 (no end time)</td><td class="srcs" data-label="Other sources"><a href="https://www.facebook.com/FiredArtsStudio/posts/pfbid0uJXHMyRBUakJGpy3wiYvhGfjApWwD2bQgbwE5KiarUudkERCbyVWsd7iY76edtQ4l">FB flyer</a>: 11:00am–12:30pm · <a href="https://www.threads.com/@firedartsstudio">Clay Vember graphic</a>: "1:00pm-12:30pm" · <a href="https://www.instagram.com/reel/DfVoWZMJxPV/">IG reel graphic</a>: "1:00am to 12:30pm"</td><td class="verdict-cell"><span class="verdict conflict">Conflict</span><span class="vnote">Issue 2</span></td></tr>
+        <tr><td class="ev" data-label="Event"><a href="https://www.firedartsstudio.com/event-details/turkeyhandprint">Kid's Pop-Up: Turkey Handprint Ornament</a></td><td class="when" data-label="Website">Sat Nov 14, 11:00 AM · $20 (no end time)</td><td class="srcs" data-label="Other sources"><a href="https://www.facebook.com/FiredArtsStudio/posts/pfbid0uJXHMyRBUakJGpy3wiYvhGfjApWwD2bQgbwE5KiarUudkERCbyVWsd7iY76edtQ4l">FB flyer</a>: 11:00am–12:30pm · <a href="https://www.facebook.com/FiredArtsStudio">FB Nov 2 image</a>: 11:00am–12:30pm · <a href="https://www.threads.com/@firedartsstudio">Clay Vember graphic</a>: "1:00pm-12:30pm" · <a href="https://www.instagram.com/reel/DfVoWZMJxPV/">IG reel graphic</a>: "1:00am to 12:30pm"</td><td class="verdict-cell"><span class="verdict conflict">Conflict</span><span class="vnote">Issue 2</span></td></tr>
         <tr><td class="ev" data-label="Event">Vintage Tree Painting</td><td class="when" data-label="Website">Sat Nov 14, 6:00–8:30 PM · $85–$195</td><td class="srcs" data-label="Other sources"><a href="https://www.instagram.com/firedartsstudio/">IG</a> Oct 15 reel</td><td class="verdict-cell"><span class="verdict ok">Agree</span></td></tr>
         <tr><td class="ev" data-label="Event">Autumn Leaves Watercolor Serving Bowl</td><td class="when" data-label="Website">Sun Nov 15, 12:00–2:30 PM · $75</td><td class="srcs" data-label="Other sources">Nov 1 calendar (<a href="https://www.instagram.com/firedartsstudio/">Instagram</a>)</td><td class="verdict-cell"><span class="verdict ok">Agree</span><span class="vnote">Wording note — Issue 10</span></td></tr>
         <tr><td class="ev" data-label="Event">Weekly Canvas: Count Your Blessings</td><td class="when" data-label="Website">Tue Nov 17, 5:30–7:30 PM · $39</td><td class="srcs" data-label="Other sources"><a href="https://www.instagram.com/firedartsstudio/">IG</a> Oct 31 (#3)</td><td class="verdict-cell"><span class="verdict ok">Agree</span></td></tr>
         <tr><td class="ev" data-label="Event">Vintage Tree Painting</td><td class="when" data-label="Website">Wed Nov 18, 6:00–8:30 PM · $85–$195</td><td class="srcs" data-label="Other sources">Website only</td><td class="verdict-cell"><span class="verdict none">No conflict</span></td></tr>
         <tr><td class="ev" data-label="Event"><a href="https://www.firedartsstudio.com/event-details/donutworry">Kid's Club: Donut Worry Clay Coaster Set</a></td><td class="when" data-label="Website">Thu Nov 19, 5:00–6:30 PM · $20, ages 5+</td><td class="srcs" data-label="Other sources">Social carousel and <a href="https://www.facebook.com/FiredArtsStudio">FB flyer</a> agree</td><td class="verdict-cell"><span class="verdict ok">Agree</span><span class="vnote">On facts; description wrong — Issue 8</span></td></tr>
-        <tr><td class="ev" data-label="Event"><a href="https://www.firedartsstudio.com/event-details/santas-little-wheel-potters">Santa's Little Wheel Potters</a></td><td class="when" data-label="Website">Sat Nov 21, 10:00 AM–11:30 PM · $55, ages 6–10</td><td class="srcs" data-label="Other sources"><a href="https://www.threads.com/@firedartsstudio">Clay Vember carousel (Threads)</a> / <a href="https://www.instagram.com/firedartsstudio/">Instagram</a>: 10:00–11:30 AM</td><td class="verdict-cell"><span class="verdict conflict">Conflict</span><span class="vnote">Issue 1</span></td></tr>
+        <tr><td class="ev" data-label="Event"><a href="https://www.firedartsstudio.com/event-details/santas-little-wheel-potters">Santa's Little Wheel Potters</a></td><td class="when" data-label="Website">Sat Nov 21, 10:00 AM–11:30 AM · $55, ages 6–10</td><td class="srcs" data-label="Other sources"><a href="https://www.threads.com/@firedartsstudio">Clay Vember carousel (Threads)</a> / <a href="https://www.instagram.com/firedartsstudio/">Instagram</a>: 10:00–11:30 AM</td><td class="verdict-cell"><span class="verdict ok">Agree</span><span class="vnote">Issue 1 resolved Nov 8</span></td></tr>
         <tr><td class="ev" data-label="Event">Teen Clay Wheel Creations</td><td class="when" data-label="Website">Sat Nov 21, 12:30–2:30 PM · $60, ages 11–17</td><td class="srcs" data-label="Other sources"><a href="https://www.facebook.com/FiredArtsStudio/posts/pfbid0uJXHMyRBUakJGpy3wiYvhGfjApWwD2bQgbwE5KiarUudkERCbyVWsd7iY76edtQ4l">FB flyer</a> small print reads 12:30–2:00</td><td class="verdict-cell"><span class="verdict conflict">Conflict</span><span class="vnote">Issue 19</span></td></tr>
         <tr><td class="ev" data-label="Event">Adult Plate and Candle Holder</td><td class="when" data-label="Website">Sat Nov 21, 3:00–5:00 PM · $65, 18+</td><td class="srcs" data-label="Other sources"><a href="https://www.facebook.com/FiredArtsStudio/posts/pfbid0uJXHMyRBUakJGpy3wiYvhGfjApWwD2bQgbwE5KiarUudkERCbyVWsd7iY76edtQ4l">FB flyer</a> reads ~5:00–6:30 p.m., $45</td><td class="verdict-cell"><span class="verdict conflict">Conflict</span><span class="vnote">Issue 19</span></td></tr>
         <tr><td class="ev" data-label="Event">Vintage Tree Painting</td><td class="when" data-label="Website">Sun Nov 22, 12:00–2:30 PM · $85–$195</td><td class="srcs" data-label="Other sources">Website only</td><td class="verdict-cell"><span class="verdict none">No conflict</span></td></tr>
         <tr><td class="ev" data-label="Event"><a href="https://www.firedartsstudio.com/event-details/forrestgnome">Weekly Canvas: Forrest Gnome</a></td><td class="when" data-label="Website">Tue Nov 24, 5:30–7:30 PM · $39</td><td class="srcs" data-label="Other sources"><a href="https://www.instagram.com/p/DfLa9cygYBK/">IG Oct 31 post</a> says Poinsettias</td><td class="verdict-cell"><span class="verdict conflict">Conflict</span><span class="vnote">Issue 3</span></td></tr>
         <tr><td class="ev" data-label="Event">Wine Down Wednesday: Handbuilt Unique Mug</td><td class="when" data-label="Website">Wed Nov 25, 6:00–8:30 PM · $35</td><td class="srcs" data-label="Other sources"><a href="https://www.instagram.com/firedartsstudio/">Social carousel (Instagram)</a> (no price stated)</td><td class="verdict-cell"><span class="verdict ok">Agree</span><span class="vnote">On date/time</span></td></tr>
-        <tr><td class="ev" data-label="Event">Thanksgiving</td><td class="when" data-label="Website">Thu Nov 26 — no notice; regular hours shown</td><td class="srcs" data-label="Other sources">Social calendar (<a href="https://www.instagram.com/firedartsstudio/">Instagram</a> / <a href="https://www.facebook.com/FiredArtsStudio">Facebook</a>) + FB cover flyer: CLOSED</td><td class="verdict-cell"><span class="verdict gap">Gap</span><span class="vnote">Issue 7</span></td></tr>
+        <tr><td class="ev" data-label="Event">Thanksgiving</td><td class="when" data-label="Website">Thu Nov 26 — no notice; regular hours shown</td><td class="srcs" data-label="Other sources">Social calendar (<a href="https://www.instagram.com/firedartsstudio/">Instagram</a> / <a href="https://www.facebook.com/FiredArtsStudio">Facebook</a>) + FB cover flyer: CLOSED; website calendar shows no Nov 26 events</td><td class="verdict-cell"><span class="verdict gap">Gap</span><span class="vnote">Issue 7</span></td></tr>
         <tr><td class="ev" data-label="Event">Vintage Tree Painting</td><td class="when" data-label="Website">Fri Nov 27, 11:00 AM–1:30 PM · $85–$195</td><td class="srcs" data-label="Other sources">Website only</td><td class="verdict-cell"><span class="verdict none">No conflict</span></td></tr>
         <tr><td class="ev" data-label="Event">Weekly Canvas: Christmas Moose</td><td class="when" data-label="Website">Tue Dec 1, 5:30–7:30 PM · $39</td><td class="srcs" data-label="Other sources">Website only</td><td class="verdict-cell"><span class="verdict none">No conflict</span></td></tr>
         <tr><td class="ev" data-label="Event">Vintage Tree Painting (2 sessions)</td><td class="when" data-label="Website">Fri Dec 4, 5:30–8:00 PM; Sat Dec 5, 10:00 AM–12:30 PM and 1:30–4:00 PM</td><td class="srcs" data-label="Other sources">Website only</td><td class="verdict-cell"><span class="verdict none">No conflict</span></td></tr>
@@ -745,22 +796,24 @@
     <h2 class="sec" id="ok-h">What checked out fine</h2>
     <div class="checks">
       <ul>
-        <li>Hours consistent across <a href="https://www.firedartsstudio.com/">website</a>, Google Business Profile, and the Nov 6 <a href="https://www.instagram.com/firedartsstudio/">Instagram</a> post (Mon closed; Tue–Thu 11–8; Fri–Sat 10–9; Sun 12–5) — except the Instagram bio (Issue 4).</li>
-        <li>Today's Vintage Tree Painting (Nov 7, 2–5 PM) matches on <a href="https://www.firedartsstudio.com/">website</a>, <a href="https://www.instagram.com/firedartsstudio/">Instagram</a>, <a href="https://www.facebook.com/FiredArtsStudio">Facebook</a>, and two local weekend guides.</li>
+        <li>Hours consistent across <a href="https://www.firedartsstudio.com/">website</a>, Google Business Profile, and the Nov 6 <a href="https://www.instagram.com/firedartsstudio/">Instagram</a> post (Mon closed; Tue–Thu 11–8; Fri–Sat 10–9; Sun 12–5) — except the Instagram bio (Issue 4) and the Facebook calendar image's Friday hours (Issue 20).</li>
+        <li>Nov 7 Vintage Tree Painting (2–5 PM) matched on <a href="https://www.firedartsstudio.com/">website</a>, <a href="https://www.instagram.com/firedartsstudio/">Instagram</a>, <a href="https://www.facebook.com/FiredArtsStudio">Facebook</a>, and two local weekend guides (now past).</li>
         <li>All weekday/date pairings in Instagram captions check out (Oct 29 = Thursday, Nov 3 = Tuesday, Nov 7 = Saturday, Nov 26 = Thursday).</li>
         <li>Nov 14, 6 PM tree session is listed on the website — an earlier concern, resolved: no conflict.</li>
+        <li>Website calendar shows no events on Thanksgiving (Nov 26), consistent with the CLOSED holiday hours — but the site still posts no closure notice (Issue 7).</li>
+        <li>The Facebook Nov 6 post's "next workshop this weekend on Nov 7 at 2pm" was the Vintage Tree Painting, which was listed on the website — no conflict.</li>
         <li>Review-count differences across aggregators (Google 21 / 4.8, top-rated.online 40 / 4.80, loc8nearme 30 / 4.7) are aggregator noise, not a studio error.</li>
         <li>Phone number (765) 450-3088 consistent everywhere; address consistent everywhere except Issues 5 and 9.</li>
-        <li>Pinterest: all 16 Created pins checked — none names an event, workshop, class, date, time, or price.</li>
-        <li>TikTok (signed-in read Nov 7): bio, website link, and recent posts agree with the website; the Nov 5 Turkey Handprint video names the workshop but gives no date/time/price, linking to the website event page instead.</li>
-        <li>Facebook (public Page read Nov 7): bio, address (46901), phone, email (admin@), and hours (Tue–Thu 11–8, Fri–Sat 10–9, Sun 12–5) all agree with the website; the Nov 7 2 PM vintage-trees workshop and Nov 10 5:30–7:30 PM canvas agree; the Nov 6 gift-card bonus ($100→$10, $50→$5, 5:30–8:30 PM) is past, no conflict.</li>
+        <li>Pinterest: all 16 Created pins checked — none names an event, workshop, class, date, time, or price; no November 2026 pin found.</li>
+        <li>TikTok (signed-in read Nov 8): bio, website link, and recent posts agree with the website; the Nov 7 inventory video and Nov 4 Turkey Handprint video name no date/time/price that disagrees with the website.</li>
+        <li>Facebook (public Page read Nov 8): bio, address (46901), phone, email (admin@) all agree with the website; the Nov 8 #InspoSUNDAY post ("OPEN 12-5 SUNDAY") matches Sunday hours; the Nov 6 gift-card bonus ($100→$10, $50→$5, 5:30–8:30 PM) is past, no conflict.</li>
       </ul>
     </div>
   </section>
 
 
 <footer>
-    Report #1 · Saturday, November 7, 2026 · Fired Arts Studio public-info audit.
+    Report #2 · Sunday, November 8, 2026 · Fired Arts Studio public-info audit.
   </footer>
 </div>
 
