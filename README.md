@@ -13,6 +13,22 @@ audit tooling; this repo hosts the published page only. The existing Muse
 artifact ("Fired Arts Daily Public-Info Audit") is left alone — this Pages
 site is the shareable, writable home for the same report.
 
+## Read aloud
+
+The sticky filter bar has a **Read aloud** button (speaker icon). It reads the
+report aloud with the device voice — summary first, then the issues, sources,
+events table, and what checked out fine — while the spoken word blooms (glow)
+and zooms (scales up) and the page smooth-scrolls to keep it in view. Pause /
+Resume and Stop sit next to it. Closed issue details open while reading and
+are restored when it stops.
+
+The feature lives in the page shell: the button in the filter bar, the
+`.ra-word` / `.ra-active` styles, and the `READ-ALOUD` script block at the end
+of `index.html`. Word spans are added at runtime only — the file on disk is
+never rewritten by the feature, so the morning rebuild's exact-string
+replacements still match. **Do not strip it on rebuild** (see the daily-audit
+cron, step 7).
+
 ## How resolutions work
 
 - **Firestore is the source of truth for user-initiated resolutions.**
