@@ -27,7 +27,9 @@ The feature lives in the page shell: the button in the filter bar, the
 of `index.html`. Word spans are added at runtime only — the file on disk is
 never rewritten by the feature, so the morning rebuild's exact-string
 replacements still match. **Do not strip it on rebuild** (see the daily-audit
-cron, step 7).
+cron, step 7). Check: `node read-aloud-test.js` from
+`~/workspace/goals/fired-arts-daily-public-info-audit/hidden_files/` (jsdom;
+simulates the voice API and drives start / pause / resume / stop).
 
 ## How resolutions work
 

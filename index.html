@@ -1155,12 +1155,15 @@ if (window.FIREBASE_CONFIG) {
   var stopBtn = document.getElementById('ra-stop');
   var labelEl = document.getElementById('ra-label');
   var statusEl = document.getElementById('ra-status');
-  if (!synth || typeof SpeechSynthesisUtterance === 'undefined' || !toggleBtn) return;
+  if (!toggleBtn) return;
+  /* If the browser has no speech API, the button still answers the tap
+     instead of sitting dead: it says so in the status line. */
+  var supported = !!(synth && typeof SpeechSynthesisUtterance !== 'undefined');
 
   var RATE = 1;
   var MS_PER_WORD = 400;               /* ~150 wpm at rate 1 */
   var MAX_CHUNK_WORDS = 100;
-  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var reducedMotion = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false;
 
   var state = 'idle';                  /* idle | reading | paused */
   var chunks = [];
@@ -1429,6 +1432,7 @@ if (window.FIREBASE_CONFIG) {
   function finish(){ stop(null); }
 
   toggleBtn.addEventListener('click', function(){
+    if (!supported) { setStatus('Read aloud isn\u2019t available in this browser.'); return; }
     if (state === 'idle') start();
     else if (state === 'reading') pause();
     else resume();
