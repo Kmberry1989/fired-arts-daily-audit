@@ -317,6 +317,36 @@
   .auth-status.err{ color:var(--bad); font-weight:600; }
   .check:disabled{ opacity:.45; cursor:not-allowed; }
 
+  /* ---------- read aloud ---------- */
+  .ra-controls{ margin-left:auto; display:flex; gap:8px; align-items:center; }
+  .ra-btn{
+    appearance:none; border:1px solid var(--line); background:var(--surface);
+    color:var(--ink); border-radius:999px; padding:7px 15px;
+    font:inherit; font-size:14.5px; font-weight:600; cursor:pointer;
+    display:inline-flex; align-items:center; gap:7px;
+  }
+  .ra-btn:hover{ border-color:var(--clay); }
+  .ra-btn[aria-pressed="true"]{ background:var(--clay); border-color:var(--clay); color:#fff; }
+  @media (prefers-color-scheme: dark){
+    .ra-btn[aria-pressed="true"]{ color:#1c120a; }
+  }
+  .ra-btn svg{ width:16px; height:16px; flex:0 0 auto; }
+  .ra-btn.ra-stop{ padding:7px 10px; }
+  .ra-btn[hidden]{ display:none; }
+  .ra-status{ font-size:14px; color:var(--bad); font-weight:600; }
+  .ra-word{
+    display:inline-block; border-radius:4px;
+    transition:transform .18s ease, background-color .18s ease, box-shadow .18s ease;
+  }
+  .ra-word.ra-active{
+    background:var(--clay-soft); color:var(--clay-strong);
+    box-shadow:0 0 0 2px rgba(168,78,34,.22), 0 0 16px 6px rgba(168,78,34,.32);
+    transform:scale(1.3);
+  }
+  @media (prefers-color-scheme: dark){
+    .ra-word.ra-active{ box-shadow:0 0 0 2px rgba(224,138,78,.3), 0 0 16px 6px rgba(224,138,78,.35); }
+  }
+
   /* ---------- mobile ---------- */
   @media (max-width:760px){
     .stat-row{ grid-template-columns:1fr 1fr; }
@@ -346,6 +376,7 @@
   }
   @media (prefers-reduced-motion: reduce){
     .chev{ transition:none; }
+    .ra-word, .ra-word.ra-active{ transition:none; transform:none; }
   }
 </style>
 </head>
@@ -380,6 +411,11 @@
         <button class="chip" type="button" data-filter="gap" aria-pressed="false">Coverage gaps · 0</button>
         <button class="chip" type="button" data-filter="resolved" aria-pressed="false">Resolved · 4</button>
         <span class="filter-note" id="filter-note"></span>
+        <span class="ra-controls">
+          <button type="button" class="ra-btn" id="ra-toggle" aria-pressed="false"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z" fill="currentColor" stroke="none" /><path d="M15.5 8.5a5 5 0 0 1 0 7" /><path d="M18.5 5.5a9 9 0 0 1 0 13" /></svg><span id="ra-label">Read aloud</span></button>
+          <button type="button" class="ra-btn ra-stop" id="ra-stop" hidden aria-label="Stop reading aloud"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12" /></svg></button>
+          <span class="ra-status" id="ra-status" role="status"></span>
+        </span>
       </div>
     </div>
 
@@ -1104,6 +1140,301 @@ if (window.FIREBASE_CONFIG) {
 } else {
   setStatus('Sign-in and write-back are not set up yet on this page (Firebase config placeholder) — the checklist below shows the report\u2019s baked-in state.');
 }
+</script>
+<script>
+/* READ-ALOUD — kept on rebuild (see daily-audit cron, step 7).
+   Reads the report aloud with the device voice (speechSynthesis).
+   The spoken word blooms (glow) + zooms (scales up) and the page
+   smooth-scrolls to keep it in view. Word spans are added at runtime
+   only — the file on disk is untouched, so the morning rebuild's
+   exact-string replacements still match. */
+(function(){
+  'use strict';
+  var synth = window.speechSynthesis;
+  var toggleBtn = document.getElementById('ra-toggle');
+  var stopBtn = document.getElementById('ra-stop');
+  var labelEl = document.getElementById('ra-label');
+  var statusEl = document.getElementById('ra-status');
+  if (!synth || typeof SpeechSynthesisUtterance === 'undefined' || !toggleBtn) return;
+
+  var RATE = 1;
+  var MS_PER_WORD = 400;               /* ~150 wpm at rate 1 */
+  var MAX_CHUNK_WORDS = 100;
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var state = 'idle';                  /* idle | reading | paused */
+  var chunks = [];
+  var chunkIdx = 0;
+  var wordIdx = -1;
+  var activeSpan = null;
+  var timer = null;                    /* word-advance timer (fallback mode) */
+  var chunkGuard = null;               /* forces advance if onend never fires */
+  var startGuard = null;               /* no-voice detection */
+  var fallbackTimer = null;            /* delayed switch to timer mode */
+  var boundarySeen = false;
+  var stopping = false;
+  var speechId = 0;
+  var openedDetails = [];
+
+  function clearTimers(){
+    if (timer) { clearInterval(timer); timer = null; }
+    if (chunkGuard) { clearTimeout(chunkGuard); chunkGuard = null; }
+    if (startGuard) { clearTimeout(startGuard); startGuard = null; }
+    if (fallbackTimer) { clearTimeout(fallbackTimer); fallbackTimer = null; }
+  }
+  function setStatus(msg){ if (statusEl) statusEl.textContent = msg || ''; }
+
+  /* ---- word wrapping (runtime only) ---- */
+  function wrapWords(root){
+    var words = [];
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+    var nodes = [];
+    var n;
+    while ((n = walker.nextNode())) nodes.push(n);
+    nodes.forEach(function(node){
+      var text = node.nodeValue;
+      if (!text || !/\S/.test(text)) return;
+      var frag = document.createDocumentFragment();
+      text.split(/(\s+)/).forEach(function(part){
+        if (!part) return;
+        if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+        var span = document.createElement('span');
+        span.className = 'ra-word';
+        span.textContent = part;
+        frag.appendChild(span);
+        words.push(span);
+      });
+      node.parentNode.replaceChild(frag, node);
+    });
+    return words;
+  }
+  function unwrapAll(){
+    document.querySelectorAll('span.ra-word').forEach(function(span){
+      span.parentNode.replaceChild(document.createTextNode(span.textContent), span);
+    });
+    activeSpan = null;
+  }
+
+  /* ---- chunking: split a block's words into speakable pieces ---- */
+  function chunkWords(words){
+    var out = [];
+    var cur = [];
+    words.forEach(function(span){
+      cur.push(span);
+      var ender = /[.!?…:;]$/.test(span.textContent);
+      if ((ender && cur.length >= 40) || cur.length >= MAX_CHUNK_WORDS){
+        out.push(cur); cur = [];
+      }
+    });
+    if (cur.length) out.push(cur);
+    return out.map(function(list){
+      var text = list.map(function(s){ return s.textContent; }).join(' ');
+      var offsets = [];
+      var pos = 0;
+      list.forEach(function(s){
+        offsets.push(pos);
+        pos += s.textContent.length + 1;
+      });
+      return { words: list, text: text, offsets: offsets };
+    });
+  }
+
+  /* ---- reading order: summary, then issues, sources, events, checked-out ---- */
+  function collectBlocks(){
+    var blocks = [];
+    var summary = document.querySelector('section[aria-labelledby="summary-h"]');
+    if (summary){
+      ['.head-meta', '.stat-row', '.summary-line', '.priority'].forEach(function(sel){
+        var el = summary.querySelector(sel);
+        if (el) blocks.push(el);
+      });
+    }
+    document.querySelectorAll('.issue:not(.hidden)').forEach(function(el){ blocks.push(el); });
+    var src = document.querySelector('section[aria-labelledby="src-h"]');
+    if (src){
+      var sub = src.querySelector('.sec-sub'); if (sub) blocks.push(sub);
+      src.querySelectorAll('.src').forEach(function(el){ blocks.push(el); });
+    }
+    document.querySelectorAll('table.events tr').forEach(function(el){ blocks.push(el); });
+    var ok = document.querySelector('section[aria-labelledby="ok-h"]');
+    if (ok) ok.querySelectorAll('.checks li').forEach(function(el){ blocks.push(el); });
+    var foot = document.querySelector('footer');
+    if (foot) blocks.push(foot);
+    return blocks;
+  }
+
+  function wordIndexAt(chunk, charIndex){
+    var idx = 0;
+    for (var i = 0; i < chunk.offsets.length; i++){
+      if (chunk.offsets[i] <= charIndex) idx = i; else break;
+    }
+    return idx;
+  }
+
+  function setActiveWord(idx){
+    if (idx === wordIdx) return;
+    if (activeSpan) activeSpan.classList.remove('ra-active');
+    activeSpan = null;
+    wordIdx = idx;
+    if (idx < 0) return;
+    var chunk = chunks[chunkIdx];
+    if (!chunk || !chunk.words[idx]) return;
+    var span = chunk.words[idx];
+    span.classList.add('ra-active');
+    activeSpan = span;
+    var rect = span.getBoundingClientRect();
+    if (rect.top < 100 || rect.bottom > window.innerHeight - 120){
+      span.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'center' });
+    }
+  }
+
+  function startTimer(){
+    if (timer) return;
+    var chunk = chunks[chunkIdx];
+    if (!chunk) return;
+    timer = setInterval(function(){
+      if (state !== 'reading') return;
+      if (wordIdx + 1 >= chunk.words.length){ clearInterval(timer); timer = null; return; }
+      setActiveWord(wordIdx + 1);
+    }, MS_PER_WORD / RATE);
+  }
+
+  function speakChunk(){
+    if (stopping || chunkIdx >= chunks.length) { finish(); return; }
+    var id = ++speechId;
+    var chunk = chunks[chunkIdx];
+    var utt = new SpeechSynthesisUtterance(chunk.text);
+    utt.rate = RATE;
+    boundarySeen = false;
+    wordIdx = -1;
+    setActiveWord(-1);
+    startGuard = setTimeout(function(){
+      if (id === speechId && state === 'reading' && !boundarySeen){
+        stop('No voice available on this device.');
+      }
+    }, 3000);
+    utt.onstart = function(){
+      if (id !== speechId) return;
+      if (startGuard) { clearTimeout(startGuard); startGuard = null; }
+      setStatus('');
+      /* If the voice gives no word boundaries (some browsers/voices),
+         fall back to timed highlighting. */
+      fallbackTimer = setTimeout(function(){
+        if (id === speechId && state === 'reading' && !boundarySeen) startTimer();
+      }, 1500);
+      /* Safety net: never sit on one chunk forever if onend never fires. */
+      chunkGuard = setTimeout(function(){ nextChunk(); },
+        chunk.words.length * (MS_PER_WORD + 100) / RATE + 5000);
+    };
+    utt.onboundary = function(ev){
+      if (id !== speechId || !ev || ev.name !== 'word') return;
+      boundarySeen = true;
+      setActiveWord(wordIndexAt(chunk, ev.charIndex || 0));
+    };
+    utt.onend = function(){
+      if (id !== speechId || stopping) return;
+      clearTimers();
+      chunkIdx++;
+      speakChunk();
+    };
+    utt.onerror = function(ev){
+      if (id !== speechId || stopping) return;
+      if (ev && (ev.error === 'canceled' || ev.error === 'interrupted')) return;
+      clearTimers();
+      chunkIdx++;
+      speakChunk();
+    };
+    synth.speak(utt);
+  }
+
+  function nextChunk(){
+    if (stopping) return;
+    clearTimers();
+    speechId++;          /* invalidate the current utterance's handlers */
+    synth.cancel();
+    chunkIdx++;
+    if (state === 'reading') speakChunk();
+  }
+
+  function updateButtons(){
+    if (state === 'idle'){
+      labelEl.textContent = 'Read aloud';
+      toggleBtn.setAttribute('aria-pressed', 'false');
+      stopBtn.hidden = true;
+    } else if (state === 'reading'){
+      labelEl.textContent = 'Pause';
+      toggleBtn.setAttribute('aria-pressed', 'true');
+      stopBtn.hidden = false;
+    } else {
+      labelEl.textContent = 'Resume';
+      toggleBtn.setAttribute('aria-pressed', 'true');
+      stopBtn.hidden = false;
+    }
+  }
+
+  function start(){
+    unwrapAll();
+    setStatus('');
+    chunks = [];
+    collectBlocks().forEach(function(block){
+      var words = wrapWords(block);
+      if (words.length) chunkWords(words).forEach(function(c){ chunks.push(c); });
+    });
+    if (!chunks.length) return;
+    /* Open closed issue details so the spoken words stay visible. */
+    openedDetails = [];
+    document.querySelectorAll('.issue:not(.hidden)').forEach(function(el){
+      if (!el.open) { el.open = true; openedDetails.push(el); }
+    });
+    chunkIdx = 0;
+    stopping = false;
+    state = 'reading';
+    updateButtons();
+    speakChunk();
+  }
+
+  function pause(){
+    if (state !== 'reading') return;
+    state = 'paused';
+    clearTimers();
+    synth.pause();
+    updateButtons();
+  }
+
+  function resume(){
+    if (state !== 'paused') return;
+    state = 'reading';
+    synth.resume();
+    var chunk = chunks[chunkIdx];
+    if (chunk){
+      if (!boundarySeen) startTimer();
+      var remaining = (chunk.words.length - Math.max(wordIdx, 0)) * (MS_PER_WORD + 100) / RATE + 5000;
+      chunkGuard = setTimeout(function(){ nextChunk(); }, remaining);
+    }
+    updateButtons();
+  }
+
+  function stop(msg){
+    stopping = true;
+    speechId++;
+    clearTimers();
+    synth.cancel();
+    state = 'idle';
+    unwrapAll();
+    openedDetails.forEach(function(el){ el.open = false; });
+    openedDetails = [];
+    updateButtons();
+    if (msg) setStatus(msg);
+  }
+  function finish(){ stop(null); }
+
+  toggleBtn.addEventListener('click', function(){
+    if (state === 'idle') start();
+    else if (state === 'reading') pause();
+    else resume();
+  });
+  stopBtn.addEventListener('click', function(){ stop(null); });
+})();
 </script>
 </body>
 </html>
